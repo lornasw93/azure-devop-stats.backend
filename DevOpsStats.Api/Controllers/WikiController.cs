@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Web.Http;
+using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Wiki;
 using DevOpsStats.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace DevOpsStats.Api.Controllers
         [Microsoft.AspNetCore.Mvc.HttpGet()]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<WikiList> Get(string project)
+        public ActionResult<ValueList<Wiki>> Get(string project)
         {
             return Ok(_devOpsService.GetWiki(project));
         }

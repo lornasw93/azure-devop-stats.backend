@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Services;
 using DevOpsStats.Api.Services.Count;
 
@@ -17,7 +16,7 @@ namespace DevOpsStats.Api.Queries.Projects
             _countService = countService;
         }
 
-        public Task<ProjectList> Execute()
+        public Task<object> Execute()
         {
             return _devOpsService.GetProjects();
         }

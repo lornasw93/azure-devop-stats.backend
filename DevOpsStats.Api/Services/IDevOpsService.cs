@@ -11,9 +11,13 @@ namespace DevOpsStats.Api.Services
 {
     public interface IDevOpsService
     {
+        Task<object> GetProjects();
+        Task<object> GetWiki(string project);
+
+
         Task<Build> GetBuild(string project, int buildId);
         Task<ValueList<Build>> GetBuilds(string project);
-        Task<ProjectList> GetProjects();
+
         Task<object> GetPullRequestsByProject(string project);
         Task<object> GetPullRequestsByRepo(string project, Guid repoId);
         Task<ReleaseList> GetReleases(string project);
@@ -21,6 +25,6 @@ namespace DevOpsStats.Api.Services
         Task<object> GetGitRepos(string project);
         Task<object> GetGitRepo(string project, Guid repoId);
         Task<IterationList> GetIterations(string project);
-        Task<WikiList> GetWiki(string project);
+
     }
 }

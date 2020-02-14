@@ -11,7 +11,7 @@ using DevOpsStats.Api.Models.Wiki;
 using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Services
-{ 
+{
     public class DevOpsService : IDevOpsService
     {
         private static string ApiVersion => "?api-version=5.1";
@@ -23,7 +23,38 @@ namespace DevOpsStats.Api.Services
         {
             _httpClient = clientFactory.CreateClient(HttpClientName);
         }
+
+        #region DONE
+        public async Task<object> GetProjects()
+        {
+            var response = _httpClient.GetAsync($"_apis/projects").Result;
+
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<object>(responseBody);
+
+            return result;
+        }
          
+        public async Task<object> GetWiki(string project)
+        {
+            var response = _httpClient.GetAsync($"{project}/_apis/wiki/wikis").Result;
+
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<object>(responseBody);
+
+            return result;
+        }
+        #endregion
+
+
+
+
+
+
         public async Task<Build> GetBuild(string project, int buildId)
         {
             var response = _httpClient.GetAsyncWithApiVersion($"{project}/_apis/build/builds/{buildId}");
@@ -46,19 +77,7 @@ namespace DevOpsStats.Api.Services
 
             return result;
         }
-    
-        public async Task<ProjectList> GetProjects()
-        {
-            var response = _httpClient.GetAsync($"_apis/projects").Result;
 
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ProjectList>(responseBody);
-
-            return result;
-        }
- 
         public async Task<object> GetPullRequestsByProject(string project)
         {
             var response = _httpClient.GetAsync($"{project}/_apis/git/pullrequests{ApiVersion}").Result;
@@ -82,7 +101,7 @@ namespace DevOpsStats.Api.Services
 
             return result;
         }
-        
+
         public async Task<Release> GetRelease(string project, int releaseId)
         {
             var response = _httpClient.GetAsync($"{project}/_apis/release/releases/{releaseId}{ApiVersion}").Result;
@@ -102,18 +121,6 @@ namespace DevOpsStats.Api.Services
 
             var responseBody = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<ReleaseList>(responseBody);
-
-            return result;
-        }
-         
-        public async Task<WikiList> GetWiki(string project)
-        {
-            var response = _httpClient.GetAsync($"{project}/_apis/wiki/wikis").Result;
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<WikiList>(responseBody);
 
             return result;
         }

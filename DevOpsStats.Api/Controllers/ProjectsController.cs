@@ -20,6 +20,10 @@ namespace DevOpsStats.Api.Controllers
             _devOpsService = devOpsService;
         }
 
+        /// <summary>
+        /// Get all projects in the organization that the authenticated user has access to
+        /// </summary>
+        /// <returns></returns>
         [Microsoft.AspNetCore.Mvc.HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

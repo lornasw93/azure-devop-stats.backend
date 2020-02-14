@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Web.Http;
+using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Queries.Backlog;
 using Microsoft.AspNetCore.Mvc;
 

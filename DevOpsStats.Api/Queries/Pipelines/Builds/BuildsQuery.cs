@@ -22,7 +22,7 @@ namespace DevOpsStats.Api.Queries.Pipelines.Builds
             return _service.GetBuild(project, buildId);
         }
 
-        public Task<ValueList<Build>> Execute(string project)
+        public Task<object> Execute(string project)
         {
             return _service.GetBuilds(project);
         }

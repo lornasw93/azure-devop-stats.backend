@@ -36,7 +36,7 @@ namespace DevOpsStats.Api.Services
 
             return result;
         }
-         
+
         public async Task<object> GetWiki(string project)
         {
             var response = _httpClient.GetAsync($"{project}/_apis/wiki/wikis").Result;
@@ -50,8 +50,73 @@ namespace DevOpsStats.Api.Services
         }
         #endregion
 
+        public async Task<object> GetBuilds(string project)
+        {
+            var response = _httpClient.GetAsyncWithApiVersion($"{project}/_apis/build/builds");
 
+            response.EnsureSuccessStatusCode();
 
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<object>(responseBody);
+
+            return result;
+        }
+        public async Task<object> GetReleases(string project)
+        {
+            var response = _httpClient.GetAsync($"{project}/_apis/release/releases{ApiVersion}").Result;
+
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<object>(responseBody);
+
+            return result;
+        }
+        public async Task<object> GetIterations(string project)
+        {
+            var response = _httpClient.GetAsync($"{project}/_apis/work/teamsettings/iterations{ApiVersion}").Result;
+
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<object>(responseBody);
+
+            return result;
+        }
+        public async Task<object> GetGitRepos(string project)
+        {
+
+            var response = _httpClient.GetAsync($"{project}/_apis/git/repositories{ApiVersion}").Result;
+
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject(responseBody);
+
+            return result;
+        }
+        public async Task<object> GetPullRequestsByProject(string project)
+        {
+            var response = _httpClient.GetAsync($"{project}/_apis/git/pullrequests{ApiVersion}").Result;
+
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject(responseBody);
+
+            return result;
+        }
+        public async Task<object> GetPullRequestsByRepo(string project, Guid repoId)
+        {
+            var response = _httpClient.GetAsync($"{project}/_apis/git/repositories/{repoId}/pullrequests{ApiVersion}").Result;
+
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject(responseBody);
+
+            return result;
+        }
 
 
 
@@ -66,42 +131,6 @@ namespace DevOpsStats.Api.Services
 
             return result;
         }
-        public async Task<ValueList<Build>> GetBuilds(string project)
-        {
-            var response = _httpClient.GetAsyncWithApiVersion($"{project}/_apis/build/builds");
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ValueList<Build>>(responseBody);
-
-            return result;
-        }
-
-        public async Task<object> GetPullRequestsByProject(string project)
-        {
-            var response = _httpClient.GetAsync($"{project}/_apis/git/pullrequests{ApiVersion}").Result;
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject(responseBody);
-
-            return result;
-        }
-
-        public async Task<object> GetPullRequestsByRepo(string project, Guid repoId)
-        {
-            var response = _httpClient.GetAsync($"{project}/_apis/git/repositories/{repoId}/pullrequests{ApiVersion}").Result;
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject(responseBody);
-
-            return result;
-        }
-
         public async Task<Release> GetRelease(string project, int releaseId)
         {
             var response = _httpClient.GetAsync($"{project}/_apis/release/releases/{releaseId}{ApiVersion}").Result;
@@ -113,31 +142,6 @@ namespace DevOpsStats.Api.Services
 
             return result;
         }
-        public async Task<ReleaseList> GetReleases(string project)
-        {
-            var response = _httpClient.GetAsync($"{project}/_apis/release/releases{ApiVersion}").Result;
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ReleaseList>(responseBody);
-
-            return result;
-        }
-
-        public async Task<object> GetGitRepos(string project)
-        {
-
-            var response = _httpClient.GetAsync($"{project}/_apis/git/repositories{ApiVersion}").Result;
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject(responseBody);
-
-            return result;
-        }
-
         public async Task<object> GetGitRepo(string project, Guid repoId)
         {
             var response = _httpClient.GetAsync($"{project}/_apis/git/repositories/{repoId}{ApiVersion}").Result;
@@ -146,18 +150,6 @@ namespace DevOpsStats.Api.Services
 
             var responseBody = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject(responseBody);
-
-            return result;
-        }
-
-        public async Task<IterationList> GetIterations(string project)
-        {
-            var response = _httpClient.GetAsync($"{project}/_apis/work/teamsettings/iterations{ApiVersion}").Result;
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<IterationList>(responseBody);
 
             return result;
         }

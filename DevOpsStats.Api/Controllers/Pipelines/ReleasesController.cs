@@ -31,7 +31,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [Microsoft.AspNetCore.Mvc.HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<ReleaseList> Get(string project)
+        public ActionResult<ValueList<Release>> Get(string project)
         {
             return Ok(_query.Execute(project));
         }

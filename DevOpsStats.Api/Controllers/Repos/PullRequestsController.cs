@@ -2,6 +2,7 @@
 using System.Net;
 using System.Web.Http;
 using DevOpsStats.Api.Models;
+using DevOpsStats.Api.Models.Git.PullRequest;
 using DevOpsStats.Api.Queries.Repos.PullRequests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +29,7 @@ namespace DevOpsStats.Api.Controllers.Repos
         [Microsoft.AspNetCore.Mvc.HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<object> Get(string project)
+        public ActionResult<ValueList<PullRequest>> Get(string project)
         {
             return Ok(_query.Execute(project));
         }

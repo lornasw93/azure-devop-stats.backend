@@ -52,7 +52,7 @@ namespace DevOpsStats.Api
                 {
                     Version = "v1",
                     Title = "DevOps Stats Backend Documentation",
-                    Description = "A simple example ASP.NET Core Web API"
+                    Description = "Backend project to provide useful stats by combining typical everyday queries into a single dashboard using Azure DevOps REST API"
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

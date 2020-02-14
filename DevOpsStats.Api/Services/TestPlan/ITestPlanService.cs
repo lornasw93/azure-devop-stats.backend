@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using DevOpsStats.Api.Models.DevOps;
-using DevOpsStats.Api.Models.DevOps.TestPlan;
+using DevOpsStats.Api.Models; 
+using DevOpsStats.Api.Models.TestPlan;
 
 namespace DevOpsStats.Api.Services.TestPlan
 {

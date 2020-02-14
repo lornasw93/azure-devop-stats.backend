@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DevOpsStats.Api.Models.DevOps;
+using DevOpsStats.Api.Models;
 
 namespace DevOpsStats.Api.Services.Count
 {

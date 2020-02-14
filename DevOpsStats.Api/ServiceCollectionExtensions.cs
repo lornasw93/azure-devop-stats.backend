@@ -1,14 +1,14 @@
-﻿using DevOpsStats.Api.Queries.DevOps;
-using DevOpsStats.Api.Queries.DevOps.Backlog;
-using DevOpsStats.Api.Queries.DevOps.Pipelines.Builds;
-using DevOpsStats.Api.Queries.DevOps.Pipelines.Releases;
-using DevOpsStats.Api.Queries.DevOps.Projects;
-using DevOpsStats.Api.Queries.DevOps.Repos.PullRequests;
+﻿using DevOpsStats.Api.Models;
+using DevOpsStats.Api.Queries;
+using DevOpsStats.Api.Queries.Backlog;
+using DevOpsStats.Api.Queries.Pipelines.Builds;
+using DevOpsStats.Api.Queries.Pipelines.Releases;
+using DevOpsStats.Api.Queries.Projects;
+using DevOpsStats.Api.Queries.Repos.PullRequests;
 using DevOpsStats.Api.Services;
 using DevOpsStats.Api.Services.BackLog;
 using DevOpsStats.Api.Services.Count;
 using DevOpsStats.Api.Services.TestPlan;
-using DevOpsStats.Api.Models.DevOps;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

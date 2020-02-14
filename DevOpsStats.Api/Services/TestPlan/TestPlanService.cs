@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
-using DevOpsStats.Api.Models.DevOps;
-using DevOpsStats.Api.Models.DevOps.TestPlan;
+using DevOpsStats.Api.Models;
+using DevOpsStats.Api.Models.TestPlan;
 using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Services.TestPlan
@@ -59,7 +56,7 @@ namespace DevOpsStats.Api.Services.TestPlan
 
             return result;
         }
-         
+
         public async Task<ListCount> GetTestRunsCount(string project)
         {
             var client = _clientFactory.CreateClient(HttpClientName);
@@ -71,6 +68,6 @@ namespace DevOpsStats.Api.Services.TestPlan
             var result = JsonConvert.DeserializeObject<ListCount>(responseBody);
 
             return result;
-        } 
+        }
     }
 }

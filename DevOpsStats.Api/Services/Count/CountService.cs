@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using DevOpsStats.Api.Extensions;
-using DevOpsStats.Api.Models.DevOps;
+using DevOpsStats.Api.Models; 
 using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Services.Count

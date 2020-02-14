@@ -6,7 +6,6 @@ namespace DevOpsStats.Api.Services.BackLog
 {
     public class BacklogService : IBacklogService
     {
-        private static string ApiVersion => "?api-version=5.1";
         private static string HttpClientName => "devOps";
 
         private readonly IHttpClientFactory _clientFactory;

@@ -3,12 +3,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using DevOpsStats.Api.Extensions;
 using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Models.DevOps;
-using DevOpsStats.Api.Models.DevOps.Build;
-using DevOpsStats.Api.Models.DevOps.Iteration;
-using DevOpsStats.Api.Models.DevOps.Project;
-using DevOpsStats.Api.Models.DevOps.Release;
-using DevOpsStats.Api.Models.DevOps.Wiki;
+using DevOpsStats.Api.Models.Build;
+using DevOpsStats.Api.Models.Iteration;
+using DevOpsStats.Api.Models.Project;
+using DevOpsStats.Api.Models.Release;
+using DevOpsStats.Api.Models.Wiki;
 using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Services

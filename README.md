@@ -1,6 +1,6 @@
 # DevOps Stats Backend
 
-Currently work in progress, with my initial thoughts below on what to include in the project.
+Currently a work in progress, with my initial thoughts below on what to include in the project and why it would be beneficial.
 
 ## Benefits
 - Efficiency

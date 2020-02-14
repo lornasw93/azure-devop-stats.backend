@@ -39,33 +39,6 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <summary>
         /// Get list of builds by project
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     GET /Builds
-        ///     {
-        ///        "count": 1,
-        ///        "value": [{
-        ///         {
-        ///           "id": 27280,
-        ///           "result": "succeeded",
-        ///           "buildNumber": "20200108.3", 
-        ///           "requestedFor": {
-        ///             "displayName": "Will Gale",
-        ///             "uniqueName": "ERSITCOMM\\will.gale"
-        ///           },
-        ///           "queueTime": "2020-01-08T14:07:36.2750555Z",
-        ///           "startTime": "2020-01-08T14:07:36.7441269Z",
-        ///           "finishTime": "2020-01-08T14:20:32.268442Z",
-        ///           "_links": {
-        ///             "badge": {
-        ///               "href": "http://comsol-tfs01.ersitcomm.local:8080/tfs/ersdev/9e364b7e-c540-4664-9d44-2c48715bdd62/_apis/build/status/208"
-        ///             }
-        ///           }
-        ///         }
-        ///       }
-        /// 
-        /// </remarks>
         /// <returns>A list of builds</returns>
         /// <response code="200">Returns list of builds</response>
         /// <response code="400">If build list is null</response>
@@ -80,15 +53,6 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <summary>
         /// Get builds count
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     GET /Builds
-        ///     {
-        ///        "count": 123,
-        ///     }
-        /// 
-        /// </remarks>
         /// <returns>Builds count</returns>
         /// <response code="200">Returns build count</response>
         /// <response code="400">If builds list is null</response>

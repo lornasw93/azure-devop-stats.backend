@@ -1,6 +1,6 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Web.Http;
+using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +20,10 @@ namespace DevOpsStats.Api.Controllers
             _devOpsService = devOpsService;
         }
 
-
         [Microsoft.AspNetCore.Mvc.HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<ProjectList> Get()
+        public ActionResult<ValueList<Project>> Get()
         {
             return Ok(_devOpsService.GetProjects());
         }

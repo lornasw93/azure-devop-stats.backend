@@ -1,5 +1,7 @@
 # DevOps Stats Backend
 
+Currently work in progress, with my initial thoughts below on what to include in the project.
+
 ## Benefits
 - Efficiency
 - Less clicks

@@ -7,6 +7,7 @@
 Everyday (more or less), I hear the same things being asked/said:
   - Who broke the build?
   - When was the last release?
+  - Balancing out work items
   - Generally people not being aware of what other people were up to project wise
   - Can someone please send over the UAT URL?
   - Which server is WebsiteA hosted on?

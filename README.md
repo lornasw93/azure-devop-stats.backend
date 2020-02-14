@@ -17,7 +17,7 @@ See more examples below. I started up this project for my own learning, but also
 - Efficiency
 - Less clicks
 - Save time by asking same things
-- Chart trends
+- (Chart) trends
 
 ## Common queries/statements
 - Project description  

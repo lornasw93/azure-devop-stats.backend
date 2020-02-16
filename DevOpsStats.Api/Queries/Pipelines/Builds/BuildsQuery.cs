@@ -3,6 +3,7 @@ using DevOpsStats.Api.Services;
 using DevOpsStats.Api.Services.Count;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Build;
+using DevOpsStats.Api.Services.List;
 
 namespace DevOpsStats.Api.Queries.Pipelines.Builds
 {
@@ -10,11 +11,13 @@ namespace DevOpsStats.Api.Queries.Pipelines.Builds
     {
         private readonly IDevOpsService _service;
         private readonly ICountService<ListCount> _countService;
+        private readonly IListService<ListObject> _listService;
 
-        public BuildsQuery(IDevOpsService service, ICountService<ListCount> countService)
+        public BuildsQuery(IDevOpsService service, ICountService<ListCount> countService, IListService<ListObject> listService)
         {
             _service = service;
             _countService = countService;
+            _listService = listService;
         }
 
         public Task<Build> Execute(string project, int buildId)
@@ -22,9 +25,9 @@ namespace DevOpsStats.Api.Queries.Pipelines.Builds
             return _service.GetBuild(project, buildId);
         }
 
-        public Task<object> Execute(string project)
+        public Task<ListObject> Execute(string project)
         {
-            return _service.GetBuilds(project);
+            return _listService.List($"{project}/_apis/build/builds");
         }
 
         public Task<ListCount> Count(string project)

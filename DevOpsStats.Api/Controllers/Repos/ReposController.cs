@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Net;
-using System.Web.Http;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Git.Repo;
-using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Repos
 {
     [Produces("application/json")]
-    [Microsoft.AspNetCore.Mvc.Route("api/repos[controller]")]
+    [Route("api/repos/[controller]")]
     [ApiController]
     [Authorize]
     public class ReposController : ControllerBase
@@ -28,7 +27,7 @@ namespace DevOpsStats.Api.Controllers.Repos
         /// <param name="project"></param>
         /// <param name="repoId"></param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet]
+        [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Repo> Get(string project, Guid repoId)
@@ -36,16 +35,16 @@ namespace DevOpsStats.Api.Controllers.Repos
             return Ok(_devOpsService.GetGitRepo(project, repoId));
         }
          
-        /// <summary>
-        /// Get list of repos by project
-        /// </summary>
-        /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<ValueList<Repo>> Get(string project)
-        {
-            return Ok(_devOpsService.GetGitRepos(project));
-        }
+        ///// <summary>
+        ///// Get list of repos by project
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        //public ActionResult<ValueList<Repo>> Get(string project)
+        //{
+        //    return Ok(_devOpsService.GetGitRepos(project));
+        //}
     }
 }

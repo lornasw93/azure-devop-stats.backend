@@ -1,14 +1,14 @@
 ﻿using System.Net;
-using System.Web.Http;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Wiki;
 using DevOpsStats.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DevOpsStats.Api.Controllers
+namespace DevOpsStats.Api.Controllers.Overview
 {
     [Produces("application/json")]
-    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
+    [Route("api/overview/[controller]")]
     [ApiController]
     [Authorize]
     public class WikiController : ControllerBase

@@ -1,15 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Net;
-using System.Web.Http;
+﻿using System.Net;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Git.PullRequest;
 using DevOpsStats.Api.Queries.Repos.PullRequests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Repos
 {
     [Produces("application/json")]
-    [Microsoft.AspNetCore.Mvc.Route("api/repos/[controller]")]
+    [Route("api/repos/[controller]")]
     [ApiController]
     [Authorize]
     public class PullRequestsController : ControllerBase

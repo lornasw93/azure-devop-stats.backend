@@ -1,16 +1,16 @@
 ﻿using System.Net;
-using System.Web.Http; 
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Build;
 using DevOpsStats.Api.Queries.Pipelines.Builds;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Pipelines
 {
     [Produces("application/json")]
-    [Microsoft.AspNetCore.Mvc.Route("api/pipelines/[controller]")]
+    [Route("api/pipelines/[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class BuildsController : ControllerBase
     {
         private readonly IBuildsQuery _query;
@@ -23,12 +23,10 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <summary>
         /// Get build info by project and build Id
         /// </summary>
-        /// <remarks>
-        /// </remarks>
         /// <returns>A build</returns>
         /// <response code="200">Returns build info</response>
         /// <response code="400">If build is null</response>
-        [Microsoft.AspNetCore.Mvc.HttpGet("{buildId:int}")]
+        [HttpGet("{buildId:int}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Build> Get(string project, int buildId)
@@ -42,7 +40,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <returns>A list of builds</returns>
         /// <response code="200">Returns list of builds</response>
         /// <response code="400">If build list is null</response>
-        [Microsoft.AspNetCore.Mvc.HttpGet]
+        [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Build>> Get(string project)
@@ -56,7 +54,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <returns>Builds count</returns>
         /// <response code="200">Returns build count</response>
         /// <response code="400">If builds list is null</response>
-        [Microsoft.AspNetCore.Mvc.HttpGet("count")]
+        [HttpGet("count")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)

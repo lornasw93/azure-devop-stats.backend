@@ -1,6 +1,6 @@
 ﻿using System.Net;
-using System.Web.Http;
 using DevOpsStats.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Boards

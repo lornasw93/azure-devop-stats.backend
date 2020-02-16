@@ -1,8 +1,8 @@
 ﻿using System.Net;
-using System.Web.Http;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers

@@ -14,7 +14,7 @@ namespace DevOpsStats.Api.Queries
             _service = service;
         }
 
-        public Task<TestPlanList> Execute(string project)
+        public Task<object> Execute(string project)
         {
             return _service.GetTestRuns(project);
         }

@@ -18,7 +18,7 @@ namespace DevOpsStats.Api.Services.TestPlan
             _clientFactory = clientFactory;
         }
 
-        public async Task<TestPlanList> GetTestRuns(string project)
+        public async Task<object> GetTestRuns(string project)
         {
             var client = _clientFactory.CreateClient(HttpClientName);
             var response = client.GetAsync($"{project}/_apis/test/runs").Result;
@@ -26,7 +26,7 @@ namespace DevOpsStats.Api.Services.TestPlan
             response.EnsureSuccessStatusCode();
 
             var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<TestPlanList>(responseBody);
+            var result = JsonConvert.DeserializeObject<object>(responseBody);
 
             return result;
         }

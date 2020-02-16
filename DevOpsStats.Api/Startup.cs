@@ -24,10 +24,17 @@ namespace DevOpsStats.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options => options.AddPolicy("Default", policy => policy
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials()));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Default", policy =>
+                {
+                    policy
+                        .WithOrigins(Configuration.GetSection("AllowedCorsOrigins").Get<ICollection<string>>().Cast<string>().ToArray())
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
 
             services.AddPersistence(Configuration);
 
@@ -71,11 +78,10 @@ namespace DevOpsStats.Api
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors("Default");
-
             app.UseMvc(routes => routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}"));
-
+            
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
         }
     }
 }

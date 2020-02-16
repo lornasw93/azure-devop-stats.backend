@@ -8,6 +8,7 @@ using DevOpsStats.Api.Queries.Repos.PullRequests;
 using DevOpsStats.Api.Services;
 using DevOpsStats.Api.Services.BackLog;
 using DevOpsStats.Api.Services.Count;
+using DevOpsStats.Api.Services.List;
 using DevOpsStats.Api.Services.TestPlan;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,7 @@ namespace DevOpsStats.Api
         {
             services.AddTransient<ICountService<ListCount>, CountService<ListCount>>();
             services.AddTransient<IDevOpsService, DevOpsService>();
+            services.AddTransient<IListService<ListObject>, ListService<ListObject>>();
             services.AddTransient<ITestPlanService, TestPlanService>();
             services.AddTransient<IBacklogService, BacklogService>();
         }

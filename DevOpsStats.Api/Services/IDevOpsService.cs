@@ -10,7 +10,6 @@ namespace DevOpsStats.Api.Services
         Task<object> GetProjects();
         Task<object> GetWiki(string project);
 
-        Task<object> GetBuilds(string project);
         Task<object> GetReleases(string project);
         Task<object> GetIterations(string project);
         Task<object> GetGitRepos(string project);

@@ -2,12 +2,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using DevOpsStats.Api.Extensions;
-using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Build;
-using DevOpsStats.Api.Models.Iteration;
-using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Models.Release;
-using DevOpsStats.Api.Models.Wiki;
 using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Services
@@ -50,17 +46,7 @@ namespace DevOpsStats.Api.Services
         }
         #endregion
 
-        public async Task<object> GetBuilds(string project)
-        {
-            var response = _httpClient.GetAsyncWithApiVersion($"{project}/_apis/build/builds");
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<object>(responseBody);
-
-            return result;
-        }
+         
         public async Task<object> GetReleases(string project)
         {
             var response = _httpClient.GetAsync($"{project}/_apis/release/releases{ApiVersion}").Result;
@@ -117,8 +103,6 @@ namespace DevOpsStats.Api.Services
 
             return result;
         }
-
-
 
         public async Task<Build> GetBuild(string project, int buildId)
         {

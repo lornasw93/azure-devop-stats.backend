@@ -5,6 +5,6 @@ namespace DevOpsStats.Api.Queries
 {
     public interface ITestPlanQuery
     {
-        Task<TestPlanList> Execute(string project);
+        Task<object> Execute(string project);
     }
 }

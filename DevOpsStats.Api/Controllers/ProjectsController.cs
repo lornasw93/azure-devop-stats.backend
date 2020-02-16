@@ -1,35 +1,33 @@
 ﻿using System.Net;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Project;
-using DevOpsStats.Api.Services;
-using Microsoft.AspNetCore.Authorization;
+using DevOpsStats.Api.Queries.Projects; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers
 {
     [Produces("application/json")]
-    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ProjectsController : ControllerBase
     {
-        private readonly IDevOpsService _devOpsService;
+        private readonly IProjectsQuery _query;
 
-        public ProjectsController(IDevOpsService devOpsService)
+        public ProjectsController(IProjectsQuery query)
         {
-            _devOpsService = devOpsService;
+            _query = query;
         }
 
         /// <summary>
         /// Get all projects in the organization that the authenticated user has access to
         /// </summary>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet]
+        [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Project>> Get()
         {
-            return Ok(_devOpsService.GetProjects());
+            return Ok(_query.Execute());
         }
     }
 }

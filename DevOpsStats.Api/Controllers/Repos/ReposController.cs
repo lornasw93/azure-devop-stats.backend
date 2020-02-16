@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Net;
-using DevOpsStats.Api.Models;
+using System.Net; 
 using DevOpsStats.Api.Models.Git.Repo;
 using DevOpsStats.Api.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -10,8 +9,7 @@ namespace DevOpsStats.Api.Controllers.Repos
 {
     [Produces("application/json")]
     [Route("api/repos/[controller]")]
-    [ApiController]
-    [Authorize]
+    [ApiController] 
     public class ReposController : ControllerBase
     {
         private readonly IDevOpsService _devOpsService;

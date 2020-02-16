@@ -1,26 +1,26 @@
 ﻿using System.Threading.Tasks;
-using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Services;
+using DevOpsStats.Api.Models; 
 using DevOpsStats.Api.Services.Count;
+using DevOpsStats.Api.Services.List;
 
 namespace DevOpsStats.Api.Queries.Projects
 {
     public class ProjectsQuery : IProjectsQuery
     {
-        private readonly IDevOpsService _devOpsService;
         private readonly ICountService<ListCount> _countService;
+        private readonly IListService<ListObject> _listService;
 
-        public ProjectsQuery(IDevOpsService devOpsService, ICountService<ListCount> countService)
+        public ProjectsQuery(ICountService<ListCount> countService, IListService<ListObject> listService)
         {
-            _devOpsService = devOpsService;
             _countService = countService;
+            _listService = listService;
         }
 
-        public Task<object> Execute()
+        public Task<ListObject> Execute()
         {
-            return _devOpsService.GetProjects();
+            return _listService.List("_apis/projects");
         }
-
+         
         public Task<ListCount> Count()
         {
             return _countService.Count("_apis/projects");

@@ -5,7 +5,7 @@ namespace DevOpsStats.Api.Queries.Projects
 {
     public interface IProjectsQuery
     {
-        Task<object> Execute();
+        Task<ListObject> Execute();
         Task<ListCount> Count();
     }
 }

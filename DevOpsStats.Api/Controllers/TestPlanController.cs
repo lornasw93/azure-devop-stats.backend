@@ -1,14 +1,12 @@
 ﻿using System.Net;
 using DevOpsStats.Api.Services.TestPlan;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers
 {
     [Produces("application/json")]
-    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]   
     public class TestPlanController : ControllerBase
     {
         private readonly ITestPlanService _service;
@@ -24,7 +22,7 @@ namespace DevOpsStats.Api.Controllers
         /// <param name="project"></param>
         /// <param name="runId"></param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet("{runId:int}")]
+        [HttpGet("{runId:int}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<object> GetById(string project, int runId)
@@ -37,7 +35,7 @@ namespace DevOpsStats.Api.Controllers
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet()]
+        [HttpGet()]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<object> GetAll(string project)
@@ -51,7 +49,7 @@ namespace DevOpsStats.Api.Controllers
         /// <param name="project"></param>
         /// <param name="runId"></param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet("stats")]
+        [HttpGet("stats")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<object> Get(string project, int runId)
@@ -64,7 +62,7 @@ namespace DevOpsStats.Api.Controllers
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet("count")]
+        [HttpGet("count")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<object> GetCount(string project)

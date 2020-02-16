@@ -6,11 +6,9 @@ using DevOpsStats.Api.Models.Release;
 namespace DevOpsStats.Api.Services
 {
     public interface IDevOpsService
-    {
-        Task<object> GetProjects();
+    { 
         Task<object> GetWiki(string project);
-
-        Task<object> GetReleases(string project);
+         
         Task<object> GetIterations(string project);
         Task<object> GetGitRepos(string project);
         Task<object> GetPullRequestsByProject(string project);

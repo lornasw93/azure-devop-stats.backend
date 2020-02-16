@@ -9,8 +9,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
 {
     [Produces("application/json")]
     [Route("api/pipelines/[controller]")]
-    [ApiController]
-    [Authorize]
+    [ApiController] 
     public class ReleasesController : ControllerBase
     {
         private readonly IReleasesQuery _query;

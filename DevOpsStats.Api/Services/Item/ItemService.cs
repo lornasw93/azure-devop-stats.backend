@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Services.Item
 {
-    public class ItemService<T> : IItemService<T> where T : ListObject
+    public class ItemService : IItemService//<T> : IItemService<T> where T : ListObject
     {
         private readonly IHttpClientFactory _clientFactory;
 
@@ -15,7 +15,7 @@ namespace DevOpsStats.Api.Services.Item
             _clientFactory = clientFactory;
         }
 
-        public async Task<ListObject> Item(string resourceUrl)
+        private async Task<string> GetResponse(string resourceUrl)
         {
             var client = _clientFactory.CreateClient("devOpsHttpClient");
             var response = client.GetAsyncWithApiVersion(resourceUrl);
@@ -23,7 +23,30 @@ namespace DevOpsStats.Api.Services.Item
             response.EnsureSuccessStatusCode();
 
             var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ListObject>(responseBody);
+
+            return responseBody;
+        }
+
+        public async Task<ListObject> Item(string resourceUrl)
+        {
+            var response = await GetResponse(resourceUrl);
+            var result = JsonConvert.DeserializeObject<ListObject>(response);
+
+            return result;
+        }
+
+        public async Task<ListCount> Count(string resourceUrl)
+        {
+            var response = await GetResponse(resourceUrl);
+            var result = JsonConvert.DeserializeObject<ListCount>(response);
+
+            return result;
+        }
+
+        public async Task<ListObject> List(string resourceUrl)
+        {
+            var response = await GetResponse(resourceUrl);
+            var result = JsonConvert.DeserializeObject<ListObject>(response);
 
             return result;
         }

@@ -1,20 +1,20 @@
 ﻿using System.Threading.Tasks;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Release;
-using DevOpsStats.Api.Services;
-using DevOpsStats.Api.Services.Count;
+using DevOpsStats.Api.Services; 
+using DevOpsStats.Api.Services.Item;
 
 namespace DevOpsStats.Api.Queries.Pipelines.Releases
 {
     public class ReleasesQuery : IReleasesQuery
     {
         private readonly IDevOpsService _devOpsService;
-        private readonly ICountService<ListCount> _countService;
+        private readonly IItemService _service;
 
-        public ReleasesQuery(IDevOpsService devOpsService, ICountService<ListCount> countService)
+        public ReleasesQuery(IDevOpsService devOpsService, IItemService service)
         {
             _devOpsService = devOpsService;
-            _countService = countService;
+            _service = service;
         }
 
         public Task<Release> Execute(string project, int releaseId)
@@ -22,14 +22,14 @@ namespace DevOpsStats.Api.Queries.Pipelines.Releases
             return _devOpsService.GetRelease(project, releaseId);
         }
 
-        public Task<object> Execute(string project)
+        public Task<ListObject> Execute(string project)
         {
-            return _devOpsService.GetReleases(project);
+            return _service.List($"{project}/_apis/release/releases");
         }
 
         public Task<ListCount> Count(string project)
         {
-            return _countService.Count($"{project}/_apis/release/releases");
+            return _service.Count($"{project}/_apis/release/releases");
         }
     }
 }

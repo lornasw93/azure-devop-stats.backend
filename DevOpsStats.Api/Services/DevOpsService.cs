@@ -19,20 +19,7 @@ namespace DevOpsStats.Api.Services
         {
             _httpClient = clientFactory.CreateClient(HttpClientName);
         }
-
-        #region DONE
-        public async Task<object> GetProjects()
-        {
-            var response = _httpClient.GetAsync($"_apis/projects").Result;
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<object>(responseBody);
-
-            return result;
-        }
-
+         
         public async Task<object> GetWiki(string project)
         {
             var response = _httpClient.GetAsync($"{project}/_apis/wiki/wikis").Result;
@@ -44,20 +31,7 @@ namespace DevOpsStats.Api.Services
 
             return result;
         }
-        #endregion
-
-         
-        public async Task<object> GetReleases(string project)
-        {
-            var response = _httpClient.GetAsync($"{project}/_apis/release/releases{ApiVersion}").Result;
-
-            response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<object>(responseBody);
-
-            return result;
-        }
+     
         public async Task<object> GetIterations(string project)
         {
             var response = _httpClient.GetAsync($"{project}/_apis/work/teamsettings/iterations{ApiVersion}").Result;

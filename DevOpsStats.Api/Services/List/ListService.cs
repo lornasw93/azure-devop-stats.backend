@@ -26,6 +26,6 @@ namespace DevOpsStats.Api.Services.List
             var result = JsonConvert.DeserializeObject<ListObject>(responseBody);
 
             return result;
-        }
+        } 
     }
 }

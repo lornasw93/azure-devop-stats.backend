@@ -10,7 +10,6 @@ namespace DevOpsStats.Api.Controllers.Pipelines
     [Produces("application/json")]
     [Route("api/pipelines/[controller]")]
     [ApiController]
-   // [Authorize]
     public class BuildsController : ControllerBase
     {
         private readonly IBuildsQuery _query;

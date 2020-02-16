@@ -24,17 +24,11 @@ namespace DevOpsStats.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("Default", policy =>
-                {
-                    policy
-                        .WithOrigins(Configuration.GetSection("AllowedCorsOrigins").Get<ICollection<string>>().Cast<string>().ToArray())
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
-            });
+            services.AddCors(options => options.AddPolicy("Default", policy => policy
+                .WithOrigins(Configuration.GetSection("AllowedCorsOrigins").Get<ICollection<string>>().ToArray())
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()));
 
             services.AddPersistence(Configuration);
 
@@ -42,8 +36,8 @@ namespace DevOpsStats.Api
                 .SetCompatibilityVersion(CompatibilityVersion.Latest)
                 .AddNewtonsoftJson();
 
-            var personalAccessToken = Configuration.GetValue<string>("Api:DevOps:PersonalAccessToken");
-            var baseUrl = Configuration.GetValue<string>("Api:DevOps:BaseUrl");
+            var personalAccessToken = Configuration.GetValue<string>("DevOpsApi:PersonalAccessToken");
+            var baseUrl = Configuration.GetValue<string>("DevOpsApi:BaseUrl");
 
             services.AddHttpClient("devOpsHttpClient", c =>
                 {
@@ -58,7 +52,7 @@ namespace DevOpsStats.Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "DevOps Stats Backend Documentation",
+                    Title = "DevOps Stats Backend API",
                     Description = "Backend project to provide useful stats by combining typical everyday queries into a single dashboard using Azure DevOps REST API"
                 });
 

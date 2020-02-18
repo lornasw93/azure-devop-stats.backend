@@ -1,38 +1,28 @@
-﻿using System.Threading.Tasks;
-using DevOpsStats.Api.Services;
-using DevOpsStats.Api.Services.Count;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Models.Build;
-using DevOpsStats.Api.Services.List;
 
 namespace DevOpsStats.Api.Queries.Pipelines.Builds
 {
-    public class BuildsQuery : IBuildsQuery
+    public class BuildsQuery : BaseService, IBuildsQuery
     {
-        private readonly IDevOpsService _service;
-        private readonly ICountService<ListCount> _countService;
-        private readonly IListService<ListObject> _listService;
+        protected override string ResourceUrl => "_apis/build/builds";
 
-        public BuildsQuery(IDevOpsService service, ICountService<ListCount> countService, IListService<ListObject> listService)
+        public BuildsQuery(IHttpClientFactory clientFactory) : base(clientFactory) { }
+
+        public Task<object> GetItem(string project, string buildId)
         {
-            _service = service;
-            _countService = countService;
-            _listService = listService;
+            return Item($"{project}/{ResourceUrl}/{buildId}");
         }
 
-        public Task<Build> Execute(string project, int buildId)
+        public Task<ListCount> GetCount(string project)
         {
-            return _service.GetBuild(project, buildId);
+            return Count($"{project}/{ResourceUrl}");
         }
 
-        public Task<ListObject> Execute(string project)
+        public Task<ListObject> GetList(string project)
         {
-            return _listService.List($"{project}/_apis/build/builds");
-        }
-
-        public Task<ListCount> Count(string project)
-        {
-            return _countService.Count($"{project}/_apis/build/builds");
-        }
+            return List($"{project}/{ResourceUrl}");
+        } 
     }
 }

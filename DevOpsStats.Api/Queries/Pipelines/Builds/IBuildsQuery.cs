@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
-using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Models.Build;
+using DevOpsStats.Api.Models; 
 
 namespace DevOpsStats.Api.Queries.Pipelines.Builds
 {
     public interface IBuildsQuery
     {
-        Task<Build> Execute(string project, int buildId);
-        Task<ListObject> Execute(string project);
-        Task<ListCount> Count(string project);
+        Task<object> GetItem(string project, string buildId);
+        Task<ListCount> GetCount(string project);
+        Task<ListObject> GetList(string project);
     }
 }

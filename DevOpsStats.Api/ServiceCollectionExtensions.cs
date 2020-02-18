@@ -28,6 +28,7 @@ namespace DevOpsStats.Api
 
         private static void AddQueries(IServiceCollection services)
         {
+        //    services.AddTransient<BaseQuery, BuildsQuery>();
             services.AddTransient<IBuildsQuery, BuildsQuery>();
             services.AddTransient<IReleasesQuery, ReleasesQuery>();
             services.AddTransient<IProjectsQuery, ProjectsQuery>();

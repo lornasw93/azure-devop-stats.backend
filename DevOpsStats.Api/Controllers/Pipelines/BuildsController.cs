@@ -1,8 +1,7 @@
 ﻿using System.Net;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Build;
-using DevOpsStats.Api.Queries.Pipelines.Builds;
-using Microsoft.AspNetCore.Authorization;
+using DevOpsStats.Api.Queries.Pipelines.Builds; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Pipelines
@@ -28,9 +27,9 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [HttpGet("{buildId:int}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<Build> Get(string project, int buildId)
+        public ActionResult<Build> Get(string project, string buildId)
         {
-            return Ok(_query.Execute(project, buildId));
+            return Ok(_query.GetItem(project, buildId));
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Build>> Get(string project)
         {
-            return Ok(_query.Execute(project));
+            return Ok(_query.GetList(project));
         }
 
         /// <summary>
@@ -58,7 +57,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
         {
-            return Ok(_query.Count(project));
+            return Ok(_query.GetCount(project));
         }
     }
 }

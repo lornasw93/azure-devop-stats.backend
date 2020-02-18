@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Models
 {
@@ -6,5 +7,5 @@ namespace DevOpsStats.Api.Models
     {
         [JsonProperty("value")]
         public object List { get; set; }
-    }
+    } 
 }

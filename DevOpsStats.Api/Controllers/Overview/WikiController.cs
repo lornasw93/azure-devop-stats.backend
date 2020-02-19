@@ -1,8 +1,4 @@
-﻿using System.Net;
-using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Models.Wiki;
-using DevOpsStats.Api.Services; 
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Overview
 {

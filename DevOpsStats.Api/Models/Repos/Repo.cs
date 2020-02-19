@@ -1,12 +1,11 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace DevOpsStats.Api.Models.Git.Repo
+namespace DevOpsStats.Api.Models.Repos
 {
     public class Repo
     {
         [JsonRequired, JsonProperty("id")]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

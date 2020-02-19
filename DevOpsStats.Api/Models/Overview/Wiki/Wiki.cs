@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace DevOpsStats.Api.Models.Wiki
+namespace DevOpsStats.Api.Models.Overview.Wiki
 {
     public class Wiki
     {

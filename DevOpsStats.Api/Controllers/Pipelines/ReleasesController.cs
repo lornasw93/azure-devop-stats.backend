@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using DevOpsStats.Api.Constants;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Pipelines.Release;
 using DevOpsStats.Api.Queries;
@@ -29,7 +30,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult Get(string project, string releaseId)
         { 
-            return Ok(_query.GetItem($"{ResourceUrlConstants.ReleaseUrl}/{project}/{releaseId}"));
+            return Ok(_query.GetItem($"{ResourceUrl.ReleaseUrl}/{project}/{releaseId}"));
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
         { 
-            return Ok(_query.GetCount($"{ResourceUrlConstants.ReleaseUrl}/{project}"));
+            return Ok(_query.GetCount($"{ResourceUrl.ReleaseUrl}/{project}"));
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Release>> Get(string project)
         {  
-            return Ok(_query.GetList($"{ResourceUrlConstants.ReleaseUrl}/{project}"));
+            return Ok(_query.GetList($"{ResourceUrl.ReleaseUrl}/{project}"));
         }
     }
 }

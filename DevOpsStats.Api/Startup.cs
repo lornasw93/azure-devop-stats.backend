@@ -41,12 +41,12 @@ namespace DevOpsStats.Api
             var baseUrl = Configuration.GetValue<string>("DevOpsApi:BaseUrl");
 
             services.AddHttpClient("devOpsHttpClient", c =>
-                {
-                    c.BaseAddress = new Uri($"{baseUrl}");
-                    c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-                        Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($":{personalAccessToken}")));
-                });
+            {
+                c.BaseAddress = new Uri($"{baseUrl}");
+                c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+                    Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($":{personalAccessToken}")));
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -76,7 +76,7 @@ namespace DevOpsStats.Api
             app.UseStaticFiles();
             app.UseCors("Default");
             app.UseMvc(routes => routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}"));
-            
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
         }

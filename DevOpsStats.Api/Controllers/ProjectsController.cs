@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using DevOpsStats.Api.Constants;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Queries;
@@ -29,7 +30,7 @@ namespace DevOpsStats.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Project> Get(string project)
         {
-            var url = $"{ResourceUrlConstants.ProjectUrl}/{project}";
+            var url = $"{ResourceUrl.ProjectUrl}/{project}";
 
             return Ok(_query.GetItem(url));
         }
@@ -45,7 +46,7 @@ namespace DevOpsStats.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
         {
-            var url = $"{ResourceUrlConstants.ProjectUrl}/{project}";
+            var url = $"{ResourceUrl.ProjectUrl}/{project}";
 
             return Ok(_query.GetCount(url));
         }
@@ -59,7 +60,7 @@ namespace DevOpsStats.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Project>> Get()
         {
-            return Ok(_query.GetList(ResourceUrlConstants.ProjectUrl));
+            return Ok(_query.GetList(ResourceUrl.ProjectUrl));
         }
     }
 }

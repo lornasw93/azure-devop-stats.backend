@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using DevOpsStats.Api.Constants;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Boards.Sprint;
 using DevOpsStats.Api.Queries;
@@ -30,7 +31,7 @@ namespace DevOpsStats.Api.Controllers.Boards
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Sprint> Get(string project, string team, string id)
         { 
-            return Ok(_query.GetItem($"{ResourceUrlConstants.SprintUrl}/{project}/{team}/{id}"));
+            return Ok(_query.GetItem($"{ResourceUrl.SprintUrl}/{project}/{team}/{id}"));
         }
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace DevOpsStats.Api.Controllers.Boards
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Sprint>> Get(string project, string team)
         {
-            return Ok(_query.GetList($"{ResourceUrlConstants.SprintUrl}/{project}/{team}"));
+            return Ok(_query.GetList($"{ResourceUrl.SprintUrl}/{project}/{team}"));
         }
     }
 }

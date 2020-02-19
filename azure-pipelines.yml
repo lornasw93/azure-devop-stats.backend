@@ -35,7 +35,7 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: 'DevOpsStats.Backend-dev-asp'
     appType: 'webApp'
-    WebAppName: 'WebProjectForPipelines'
+    WebAppName: 'devopstatsbackend'
     packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
     enableCustomDeployment: true
     DeploymentType: 'webDeploy'

@@ -33,9 +33,9 @@ steps:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'DevOpsStats.Backend-dev-asp'
+    azureSubscription: 'Azure Subscription'
     appType: 'webApp'
-    WebAppName: 'devopstatsbackend'
+    WebAppName: 'devOpsStats.Backend-dev-asp'
     packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
     enableCustomDeployment: true
     DeploymentType: 'webDeploy'

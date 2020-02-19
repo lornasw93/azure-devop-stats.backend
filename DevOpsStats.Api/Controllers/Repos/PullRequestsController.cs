@@ -19,7 +19,7 @@ namespace DevOpsStats.Api.Controllers.Repos
         }
         
         /// <summary>
-        /// Get a pull request by project and pull request Id
+        /// Get pull request by project and pull request Id
         /// </summary>
         /// <returns>Pull request</returns>
         /// <response code="200">Returns pull request</response>
@@ -35,7 +35,7 @@ namespace DevOpsStats.Api.Controllers.Repos
         }
 
         /// <summary>
-        /// Get a pull request by project, repository Id and pull request Id
+        /// Get pull request by project, repository Id and pull request Id
         /// </summary>
         /// <returns>Pull request</returns>
         /// <response code="200">Returns pull request</response>
@@ -51,7 +51,7 @@ namespace DevOpsStats.Api.Controllers.Repos
         }
 
         /// <summary>
-        /// Pull requests count by project
+        /// Get pull request count by project
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>

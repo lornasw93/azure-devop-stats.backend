@@ -42,7 +42,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
         { 
-            return Ok(_query.GetCount($"{ResourceUrlConstants.BuildUrl}/{project}"));
+            return Ok(_query.GetCount($"{ResourceUrlConstants.ReleaseUrl}/{project}"));
         }
 
         /// <summary>

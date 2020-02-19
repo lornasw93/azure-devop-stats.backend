@@ -19,7 +19,7 @@ namespace DevOpsStats.Api.Controllers
         }
 
         /// <summary>
-        /// Get project info by name or Id
+        /// Get project by name or Id
         /// </summary>
         /// <returns>A project</returns>
         /// <response code="200">Returns project info</response>
@@ -37,7 +37,7 @@ namespace DevOpsStats.Api.Controllers
         /// <summary>
         /// Get project count
         /// </summary>
-        /// <returns>Project count</returns>
+        /// <returns>Get project count</returns>
         /// <response code="200">Returns project count</response>
         /// <response code="400">If project list is null</response>
         [HttpGet("count")]

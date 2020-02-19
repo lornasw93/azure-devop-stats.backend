@@ -2,17 +2,16 @@
 using System.Threading.Tasks;
 using DevOpsStats.Api.Extensions;
 using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Models.Build;
 using Newtonsoft.Json;
 
-namespace DevOpsStats.Api.Services.Item
+namespace DevOpsStats.Api.Services
 {
-    public class ItemService : IItemService
+    public abstract class BaseService
     {
         private readonly IHttpClientFactory _clientFactory;
         private const string HttpClientName = "devOpsHttpClient";
 
-        public ItemService(IHttpClientFactory clientFactory)
+        protected BaseService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
         }
@@ -37,14 +36,19 @@ namespace DevOpsStats.Api.Services.Item
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task<ListCount> Count(string resourceUrl)
+        public virtual async Task<object> Item(string resourceUrl)
+        {
+            var response = await GetResponse(resourceUrl);
+            return JsonConvert.DeserializeObject<object>(response);
+        }
+
+        public virtual async Task<ListCount> Count(string resourceUrl)
         {
             var response = await GetResponse(resourceUrl);
             return JsonConvert.DeserializeObject<ListCount>(response);
-
         }
 
-        public async Task<ListObject> List(string resourceUrl)
+        public virtual async Task<ListObject> List(string resourceUrl)
         {
             var response = await GetResponseWithApiVersion(resourceUrl);
             return JsonConvert.DeserializeObject<ListObject>(response);

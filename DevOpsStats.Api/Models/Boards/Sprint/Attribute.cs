@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DevOpsStats.Api.Models.Iteration
+namespace DevOpsStats.Api.Models.Boards.Sprint
 {
     public class Attribute
     {

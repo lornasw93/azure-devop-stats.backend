@@ -1,7 +1,7 @@
-﻿using System;
-using System.Net;
-using DevOpsStats.Api.Services;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Net;
+using DevOpsStats.Api.Models;
+using DevOpsStats.Api.Models.Boards.Sprint;
+using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Boards
@@ -11,19 +11,40 @@ namespace DevOpsStats.Api.Controllers.Boards
     [ApiController]
     public class SprintController : ControllerBase
     {
-        //private readonly IDevOpsService _service;
+        private readonly IBaseQuery _query;
 
-        //public SprintController(IDevOpsService service)
-        //{
-        //    _service = service;
-        //}
+        public SprintController(IBaseQuery query)
+        {
+            _query = query;
+        }
+        
+        /// <summary>
+        /// Get a sprint/iteration by project, team and Id
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="team"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/api/boards/[controller]/{project}/{team}/{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<Sprint> Get(string project, string team, string id)
+        { 
+            return Ok(_query.GetItem($"{ResourceUrlConstants.SprintUrl}/{project}/{team}/{id}"));
+        }
 
-        //[HttpGet()]
-        //[ProducesResponseType((int)HttpStatusCode.OK)]
-        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        //public ActionResult<object> Get(string project)
-        //{
-        //    return Ok();
-        //}
+        /// <summary>
+        /// Get a sprint/iteration list by project and team
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="team"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<ValueList<Sprint>> Get(string project, string team)
+        {
+            return Ok(_query.GetList($"{ResourceUrlConstants.SprintUrl}/{project}/{team}"));
+        }
     }
 }

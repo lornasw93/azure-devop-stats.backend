@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Project;
+using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers
@@ -10,9 +11,9 @@ namespace DevOpsStats.Api.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IGenericQuery _query;
+        private readonly IBaseQuery _query;
 
-        public ProjectsController(IGenericQuery query)
+        public ProjectsController(IBaseQuery query)
         {
             _query = query;
         }
@@ -28,7 +29,9 @@ namespace DevOpsStats.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Project> Get(string project)
         {
-            return Ok(_query.GetItem(ResourceUrlConstants.ProjectUrl, project));
+            var url = $"{ResourceUrlConstants.ProjectUrl}/{project}";
+
+            return Ok(_query.GetItem(url));
         }
         
         /// <summary>
@@ -42,7 +45,9 @@ namespace DevOpsStats.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
         {
-            return Ok(_query.GetCount(ResourceUrlConstants.ProjectUrl, project));
+            var url = $"{ResourceUrlConstants.ProjectUrl}/{project}";
+
+            return Ok(_query.GetCount(url));
         }
 
         /// <summary>
@@ -54,7 +59,7 @@ namespace DevOpsStats.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Project>> Get()
         {
-            return Ok(_query.GetList(ResourceUrlConstants.ProjectUrl, null));
+            return Ok(_query.GetList(ResourceUrlConstants.ProjectUrl));
         }
     }
 }

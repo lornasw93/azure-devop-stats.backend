@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Models.Release; 
+using DevOpsStats.Api.Models.Pipelines.Release;
+using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Pipelines
@@ -10,18 +11,16 @@ namespace DevOpsStats.Api.Controllers.Pipelines
     [ApiController]
     public class ReleasesController : ControllerBase
     {
-        private readonly IGenericQuery _query;
+        private readonly IBaseQuery _query;
 
-        public ReleasesController(IGenericQuery query)
+        public ReleasesController(IBaseQuery query)
         {
             _query = query;
         }
 
         /// <summary>
-        /// Get release info by project and build Id
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
+        /// Get release info by project and release Id
+        /// </summary> 
         /// <returns>A release</returns>
         /// <response code="200">Returns release info</response>
         /// <response code="400">If release is null</response>
@@ -29,8 +28,8 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult Get(string project, string releaseId)
-        {
-            return Ok(_query.GetItem(ResourceUrlConstants.ReleaseUrl, project, releaseId));
+        { 
+            return Ok(_query.GetItem($"{ResourceUrlConstants.ReleaseUrl}/{project}/{releaseId}"));
         }
 
         /// <summary>
@@ -42,8 +41,8 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
-        {
-            return Ok(_query.GetCount(ResourceUrlConstants.ReleaseUrl, project));
+        { 
+            return Ok(_query.GetCount($"{ResourceUrlConstants.BuildUrl}/{project}"));
         }
 
         /// <summary>
@@ -56,8 +55,8 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Release>> Get(string project)
-        {
-            return Ok(_query.GetList(ResourceUrlConstants.ReleaseUrl, project));
+        {  
+            return Ok(_query.GetList($"{ResourceUrlConstants.ReleaseUrl}/{project}"));
         }
     }
 }

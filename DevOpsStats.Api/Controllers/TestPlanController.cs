@@ -1,5 +1,6 @@
 ﻿using System.Net;
-using DevOpsStats.Api.Services.TestPlan;
+using DevOpsStats.Api.Models;
+using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers
@@ -9,65 +10,53 @@ namespace DevOpsStats.Api.Controllers
     [ApiController]   
     public class TestPlanController : ControllerBase
     {
-        //private readonly ITestPlanService _service;
+        private readonly IBaseQuery _query;
 
-        //public TestPlanController(ITestPlanService service)
-        //{
-        //    _service = service;
-        //}
+        public TestPlanController(IBaseQuery query)
+        {
+            _query = query;
+        }
 
         ///// <summary>
-        ///// Get a test run by it's ID
+        ///// Get test run by project and Id
         ///// </summary>
         ///// <param name="project"></param>
         ///// <param name="runId"></param>
         ///// <returns></returns>
-        //[HttpGet("{runId:int}")]
+        //[HttpGet("/api/[controller]/{project}/{runId}")]
         //[ProducesResponseType((int)HttpStatusCode.OK)]
         //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
         //public ActionResult<object> GetById(string project, int runId)
         //{
-        //    return Ok(_service.GetTestRunById(project, runId));
+        //    return Ok(_query.GetTestRunById(project, runId));
         //}
 
         ///// <summary>
-        ///// Get a list of test runs
+        ///// Get a list of test runs by project
         ///// </summary>
         ///// <param name="project"></param>
         ///// <returns></returns>
-        //[HttpGet()]
+        //[HttpGet("/api/[controller]/{project}")]
         //[ProducesResponseType((int)HttpStatusCode.OK)]
         //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
         //public ActionResult<object> GetAll(string project)
         //{
-        //    return Ok(_service.GetTestRuns(project));
+        //    return Ok(_query.GetTestRuns(project));
         //}
 
         ///// <summary>
-        ///// Get test run statistics, used when we want to get summary of a run by outcome
-        ///// </summary>
-        ///// <param name="project"></param>
-        ///// <param name="runId"></param>
-        ///// <returns></returns>
-        //[HttpGet("stats")]
-        //[ProducesResponseType((int)HttpStatusCode.OK)]
-        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        //public ActionResult<object> Get(string project, int runId)
-        //{
-        //    return Ok(_service.GetTestRunStats(project, runId));
-        //}
-
-        ///// <summary>
-        ///// Get count of test runs
+        ///// Get count of test runs by project
         ///// </summary>
         ///// <param name="project"></param>
         ///// <returns></returns>
         //[HttpGet("count")]
         //[ProducesResponseType((int)HttpStatusCode.OK)]
         //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        //public ActionResult<object> GetCount(string project)
+        //public ActionResult<ListCount> GetCount(string project)
         //{
-        //    return Ok(_service.GetTestRunsCount(project));
+        //    var url = $"{ResourceUrlConstants.TestPlanUrl}/{project}";
+
+        //    return Ok(_query.GetCount(url));
         //}
     }
 }

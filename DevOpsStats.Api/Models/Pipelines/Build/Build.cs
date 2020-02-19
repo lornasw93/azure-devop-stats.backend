@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace DevOpsStats.Api.Models.Build
+namespace DevOpsStats.Api.Models.Pipelines.Build
 {
     public class Build
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace DevOpsStats.Api.Models.Iteration
+namespace DevOpsStats.Api.Models.Boards.Sprint
 {
-    public class Iteration
+    public class Sprint
     {
         [JsonProperty("id")]
         public Guid Id { get; set; }

@@ -1,10 +1,4 @@
-﻿using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Services;
-using DevOpsStats.Api.Services.BackLog;
-using DevOpsStats.Api.Services.Count;
-using DevOpsStats.Api.Services.Item;
-using DevOpsStats.Api.Services.List;
-using DevOpsStats.Api.Services.TestPlan;
+﻿using DevOpsStats.Api.Queries;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,7 +16,7 @@ namespace DevOpsStats.Api
 
         private static void AddQueries(IServiceCollection services)
         {
-            services.AddTransient<IGenericQuery, GenericQuery>();
+            services.AddTransient<IBaseQuery, BaseQuery>();
         }
 
         private static void AddServices(IServiceCollection services)

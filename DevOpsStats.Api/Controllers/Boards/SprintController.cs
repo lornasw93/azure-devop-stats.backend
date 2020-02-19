@@ -11,19 +11,19 @@ namespace DevOpsStats.Api.Controllers.Boards
     [ApiController]
     public class SprintController : ControllerBase
     {
-        private readonly IDevOpsService _service;
+        //private readonly IDevOpsService _service;
 
-        public SprintController(IDevOpsService service)
-        {
-            _service = service;
-        }
+        //public SprintController(IDevOpsService service)
+        //{
+        //    _service = service;
+        //}
 
-        [HttpGet()]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<object> Get(string project)
-        {
-            return Ok();
-        }
+        //[HttpGet()]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        //public ActionResult<object> Get(string project)
+        //{
+        //    return Ok();
+        //}
     }
 }

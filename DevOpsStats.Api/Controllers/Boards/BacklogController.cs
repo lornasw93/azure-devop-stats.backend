@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using DevOpsStats.Api.Queries.Backlog;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Boards
@@ -9,9 +8,9 @@ namespace DevOpsStats.Api.Controllers.Boards
     [ApiController]
     public class BacklogController : ControllerBase
     {
-        private readonly IBacklogQuery _query;
+        private readonly IGenericQuery _query;
 
-        public BacklogController(IBacklogQuery query)
+        public BacklogController(IGenericQuery query)
         {
             _query = query;
         }
@@ -22,12 +21,12 @@ namespace DevOpsStats.Api.Controllers.Boards
         /// <param name="project"></param>
         /// <param name="team"></param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet()]
+        [HttpGet()]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<object> GetAll(string project, string team)
         {
-            return Ok(_query.Execute(project, team));
+            return Ok(_query.GetList(project, team));
         }
     }
 }

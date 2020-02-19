@@ -1,10 +1,4 @@
 ﻿using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Queries;
-using DevOpsStats.Api.Queries.Backlog;
-using DevOpsStats.Api.Queries.Pipelines.Builds;
-using DevOpsStats.Api.Queries.Pipelines.Releases;
-using DevOpsStats.Api.Queries.Projects;
-using DevOpsStats.Api.Queries.Repos.PullRequests;
 using DevOpsStats.Api.Services;
 using DevOpsStats.Api.Services.BackLog;
 using DevOpsStats.Api.Services.Count;
@@ -28,23 +22,17 @@ namespace DevOpsStats.Api
 
         private static void AddQueries(IServiceCollection services)
         {
-        //    services.AddTransient<BaseQuery, BuildsQuery>();
-            services.AddTransient<IBuildsQuery, BuildsQuery>();
-            services.AddTransient<IReleasesQuery, ReleasesQuery>();
-            services.AddTransient<IProjectsQuery, ProjectsQuery>();
-            services.AddTransient<IPullRequestsQuery, PullRequestsQuery>();
-            services.AddTransient<ITestPlanQuery, TestPlanQuery>();
-            services.AddTransient<IBacklogQuery, BacklogQuery>();
+            services.AddTransient<IGenericQuery, GenericQuery>();
         }
 
         private static void AddServices(IServiceCollection services)
         {
-            services.AddTransient<IItemService, ItemService>();
-            services.AddTransient<ICountService<ListCount>, CountService<ListCount>>();
-            services.AddTransient<IDevOpsService, DevOpsService>();
-            services.AddTransient<IListService<ListObject>, ListService<ListObject>>();
-            services.AddTransient<ITestPlanService, TestPlanService>();
-            services.AddTransient<IBacklogService, BacklogService>();
+            //services.AddTransient<IItemService, ItemService>();
+            //services.AddTransient<ICountService<ListCount>, CountService<ListCount>>();
+            //services.AddTransient<IDevOpsService, DevOpsService>();
+            //services.AddTransient<IListService<ListObject>, ListService<ListObject>>();
+            //services.AddTransient<ITestPlanService, TestPlanService>();
+            //services.AddTransient<IBacklogService, BacklogService>();
         }
     }
 }

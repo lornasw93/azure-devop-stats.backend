@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Project;
-using DevOpsStats.Api.Queries.Projects; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers
@@ -11,11 +10,39 @@ namespace DevOpsStats.Api.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectsQuery _query;
+        private readonly IGenericQuery _query;
 
-        public ProjectsController(IProjectsQuery query)
+        public ProjectsController(IGenericQuery query)
         {
             _query = query;
+        }
+
+        /// <summary>
+        /// Get project info by name or Id
+        /// </summary>
+        /// <returns>A project</returns>
+        /// <response code="200">Returns project info</response>
+        /// <response code="400">If project is null</response>
+        [HttpGet("/api/[controller]/{project}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<Project> Get(string project)
+        {
+            return Ok(_query.GetItem(ResourceUrlConstants.ProjectUrl, project));
+        }
+        
+        /// <summary>
+        /// Get project count
+        /// </summary>
+        /// <returns>Project count</returns>
+        /// <response code="200">Returns project count</response>
+        /// <response code="400">If project list is null</response>
+        [HttpGet("count")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<ListCount> GetCount(string project)
+        {
+            return Ok(_query.GetCount(ResourceUrlConstants.ProjectUrl, project));
         }
 
         /// <summary>
@@ -27,7 +54,7 @@ namespace DevOpsStats.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Project>> Get()
         {
-            return Ok(_query.Execute());
+            return Ok(_query.GetList(ResourceUrlConstants.ProjectUrl, null));
         }
     }
 }

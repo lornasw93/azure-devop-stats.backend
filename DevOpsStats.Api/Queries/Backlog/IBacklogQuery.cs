@@ -4,6 +4,6 @@ namespace DevOpsStats.Api.Queries.Backlog
 {
     public interface IBacklogQuery
     {
-        Task<object> Execute(string project, string team);
+       // Task<object> Execute(string project, string team);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using DevOpsStats.Api.Models;
-using DevOpsStats.Api.Models.Git.PullRequest;
-using DevOpsStats.Api.Queries.Repos.PullRequests; 
+using DevOpsStats.Api.Models.Git.PullRequest; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Repos
@@ -11,24 +10,11 @@ namespace DevOpsStats.Api.Controllers.Repos
     [ApiController]
     public class PullRequestsController : ControllerBase
     {
-        private readonly IPullRequestsQuery _query;
+        private readonly IGenericQuery _query;
 
-        public PullRequestsController(IPullRequestsQuery query)
+        public PullRequestsController(IGenericQuery query)
         {
             _query = query;
-        }
-
-        /// <summary>
-        /// Get list of pull requests
-        /// </summary>
-        /// <param name="project"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<ValueList<PullRequest>> Get(string project)
-        {
-            return Ok(_query.Execute(project));
         }
 
         /// <summary>
@@ -41,7 +27,20 @@ namespace DevOpsStats.Api.Controllers.Repos
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
         {
-            return Ok(_query.Count(project));
+            return Ok(_query.GetCount(ResourceUrlConstants.PullRequestUrl, project));
         }
+
+        /// <summary>
+        /// Get list of pull requests
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<ValueList<PullRequest>> Get(string project)
+        {
+            return Ok(_query.GetList(ResourceUrlConstants.PullRequestUrl, project));
+        } 
     }
 }

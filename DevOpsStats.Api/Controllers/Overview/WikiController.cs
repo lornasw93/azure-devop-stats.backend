@@ -6,29 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Overview
 {
-    [Produces("application/json")]
-    [Route("api/overview/[controller]")]
-    [ApiController]
+    //[Produces("application/json")]
+    //[Route("api/overview/[controller]")]
+    //[ApiController]
     public class WikiController : ControllerBase
     {
-        private readonly IDevOpsService _devOpsService;
+        //private readonly IDevOpsService _devOpsService;
 
-        public WikiController(IDevOpsService devOpsService)
-        {
-            _devOpsService = devOpsService;
-        }
+        //public WikiController(IDevOpsService devOpsService)
+        //{
+        //    _devOpsService = devOpsService;
+        //}
 
-        /// <summary>
-        /// Gets all wikis in a project or collection
-        /// </summary>
-        /// <param name="project"></param>
-        /// <returns></returns>
-        [HttpGet()]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<ValueList<Wiki>> Get(string project)
-        {
-            return Ok(_devOpsService.GetWiki(project));
-        }
+        ///// <summary>
+        ///// Gets all wikis in a project or collection
+        ///// </summary>
+        ///// <param name="project"></param>
+        ///// <returns></returns>
+        //[HttpGet()]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        //public ActionResult<ValueList<Wiki>> Get(string project)
+        //{
+        //    return Ok(_devOpsService.GetWiki(project));
+        //}
     }
 }

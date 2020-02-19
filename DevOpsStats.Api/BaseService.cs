@@ -11,8 +11,6 @@ namespace DevOpsStats.Api
         private readonly IHttpClientFactory _clientFactory;
         private const string HttpClientName = "devOpsHttpClient";
 
-        protected abstract string ResourceUrl { get; }
-
         protected BaseService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
@@ -55,14 +53,5 @@ namespace DevOpsStats.Api
             var response = await GetResponseWithApiVersion(resourceUrl);
             return JsonConvert.DeserializeObject<ListObject>(response);
         }
-
-        //protected BaseQuery(IItemService service) { }
-
-        //public abstract Task<ListObject> Execute(string project);
-        //public abstract Task<ListCount> Count(string project);
-
-        //public virtual void Hi()
-        //{
-        //}
     }
 }

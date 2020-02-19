@@ -7,16 +7,16 @@ namespace DevOpsStats.Api.Services
 {
     public interface IDevOpsService
     { 
-        Task<object> GetWiki(string project);
+        //Task<object> GetWiki(string project);
          
-        Task<object> GetIterations(string project);
-        Task<object> GetGitRepos(string project);
-        Task<object> GetPullRequestsByProject(string project);
-        Task<object> GetPullRequestsByRepo(string project, Guid repoId);
+        //Task<object> GetIterations(string project);
+        //Task<object> GetGitRepos(string project);
+        //Task<object> GetPullRequestsByProject(string project);
+        //Task<object> GetPullRequestsByRepo(string project, Guid repoId);
 
 
-        Task<Build> GetBuild(string project, int buildId);
-        Task<Release> GetRelease(string project, int releaseId);
-        Task<object> GetGitRepo(string project, Guid repoId);
+        //Task<Build> GetBuild(string project, int buildId);
+        //Task<Release> GetRelease(string project, int releaseId);
+        //Task<object> GetGitRepo(string project, Guid repoId);
     }
 }

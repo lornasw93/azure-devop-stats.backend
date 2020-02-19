@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Build;
-using DevOpsStats.Api.Queries.Pipelines.Builds; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevOpsStats.Api.Controllers.Pipelines
@@ -11,9 +10,9 @@ namespace DevOpsStats.Api.Controllers.Pipelines
     [ApiController]
     public class BuildsController : ControllerBase
     {
-        private readonly IBuildsQuery _query;
+        private readonly IGenericQuery _query;
 
-        public BuildsController(IBuildsQuery query)
+        public BuildsController(IGenericQuery query)
         {
             _query = query;
         }
@@ -24,12 +23,26 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <returns>A build</returns>
         /// <response code="200">Returns build info</response>
         /// <response code="400">If build is null</response>
-        [HttpGet("{buildId:int}")]
+        [HttpGet("/api/pipelines/[controller]/{project}/{buildId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Build> Get(string project, string buildId)
         {
-            return Ok(_query.GetItem(project, buildId));
+            return Ok(_query.GetItem(ResourceUrlConstants.BuildUrl, project, buildId));
+        }
+
+        /// <summary>
+        /// Get build count
+        /// </summary>
+        /// <returns>Builds count</returns>
+        /// <response code="200">Returns build count</response>
+        /// <response code="400">If builds list is null</response>
+        [HttpGet("count")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<ListCount> GetCount(string project)
+        {
+            return Ok(_query.GetCount(ResourceUrlConstants.BuildUrl, project));
         }
 
         /// <summary>
@@ -43,21 +56,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Build>> Get(string project)
         {
-            return Ok(_query.GetList(project));
-        }
-
-        /// <summary>
-        /// Get builds count
-        /// </summary>
-        /// <returns>Builds count</returns>
-        /// <response code="200">Returns build count</response>
-        /// <response code="400">If builds list is null</response>
-        [HttpGet("count")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<ListCount> GetCount(string project)
-        {
-            return Ok(_query.GetCount(project));
+            return Ok(_query.GetList(ResourceUrlConstants.BuildUrl, project));
         }
     }
 }

@@ -9,19 +9,19 @@ namespace DevOpsStats.Api.Controllers.Boards
     [ApiController]
     public class WorkItemsController : ControllerBase
     {
-        private readonly IDevOpsService _service;
+        //private readonly IDevOpsService _service;
 
-        public WorkItemsController(IDevOpsService service)
-        {
-            _service = service;
-        }
+        //public WorkItemsController(IDevOpsService service)
+        //{
+        //    _service = service;
+        //}
 
-        [Microsoft.AspNetCore.Mvc.HttpGet()]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<object> Get(string project)
-        {
-            return Ok();
-        }
+        //[Microsoft.AspNetCore.Mvc.HttpGet()]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        //public ActionResult<object> Get(string project)
+        //{
+        //    return Ok();
+        //}
     }
 }

@@ -5,16 +5,17 @@ namespace DevOpsStats.Api.Queries.Backlog
 {
     public class BacklogQuery : IBacklogQuery
     {
-        private readonly IBacklogService _service;
+        //    private readonly IBacklogService _service;
 
-        public BacklogQuery(IBacklogService service)
-        {
-            _service = service;
-        }
+        //    public BacklogQuery(IBacklogService service)
+        //    {
+        //        _service = service;
+        //    }
 
-        public Task<object> Execute(string project, string team)
-        {
-            return _service.GetItems(project, team);
-        }
+        //    public Task<object> Execute(string project, string team)
+        //    {
+        //        return _service.GetItems(project, team);
+        //    }
+        //}
     }
 }

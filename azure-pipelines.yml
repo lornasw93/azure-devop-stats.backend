@@ -33,6 +33,6 @@ steps:
 - task: AzureWebApp@1
   inputs:
     appType: 'webApp'
-    azureSubscription: 'Azure Subscription'
-    appName: 'devopstatsbackend'
+    azureSubscription: 'devopstatsbackend'
+    appName: 'DevOpsStats.Backend-dev-asp'
     package: $(System.ArtifactsDirectory)/**/*.zip    

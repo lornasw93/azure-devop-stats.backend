@@ -22,9 +22,6 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <summary>
         /// Get build by project and build Id
         /// </summary>
-        /// <returns>A build</returns>
-        /// <response code="200">Returns build info</response>
-        /// <response code="400">If build is null</response>
         [HttpGet("/api/pipelines/[controller]/{project}/{buildId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -38,9 +35,6 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <summary>
         /// Get build count
         /// </summary>
-        /// <returns>Builds count</returns>
-        /// <response code="200">Returns build count</response>
-        /// <response code="400">If builds list is null</response>
         [HttpGet("count")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -52,9 +46,6 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <summary>
         /// Get list of builds by project
         /// </summary>
-        /// <returns>A list of builds</returns>
-        /// <response code="200">Returns list of builds</response>
-        /// <response code="400">If build list is null</response>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

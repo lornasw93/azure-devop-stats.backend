@@ -38,10 +38,10 @@ namespace DevOpsStats.Api.Services
             return JsonConvert.DeserializeObject<ListCount>(response);
         }
 
-        public virtual async Task<ListObject> List(string resourceUrl)
+        public virtual async Task<RootObject> List(string resourceUrl)
         {
             var response = await GetResponse(resourceUrl);
-            return JsonConvert.DeserializeObject<ListObject>(response);
+            return JsonConvert.DeserializeObject<RootObject>(response);
         }
     }
 }

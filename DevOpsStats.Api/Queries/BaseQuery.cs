@@ -19,7 +19,7 @@ namespace DevOpsStats.Api.Queries
             return Count(resourceUrl);
         }
 
-        public Task<ListObject> GetList(string resourceUrl)
+        public Task<RootObject> GetList(string resourceUrl)
         {
             return List(resourceUrl);
         }

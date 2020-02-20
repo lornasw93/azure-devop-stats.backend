@@ -12,8 +12,8 @@ namespace DevOpsStats.Api.Models.Repos
 
         [JsonProperty("url")]
         public string Url { get; set; }
-
-        [JsonProperty("serverUrl")]
-        public string ServerUrl { get; set; }   
+        
+        [JsonProperty("project")]
+        public Project.Project Project { get; set; }
     }
 }

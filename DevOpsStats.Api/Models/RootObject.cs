@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Models
 {
-    public class ListObject
+    public class RootObject
     {
         [JsonProperty("value")]
         public object List { get; set; }

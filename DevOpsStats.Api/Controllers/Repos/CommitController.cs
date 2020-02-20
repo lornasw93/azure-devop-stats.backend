@@ -4,10 +4,10 @@ using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DevOpsStats.Api.Controllers
+namespace DevOpsStats.Api.Controllers.Repos
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/repos/[controller]")]
     [ApiController]
     public class CommitController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace DevOpsStats.Api.Controllers
         /// <summary>
         /// Retrieve git commits for a project
         /// </summary> 
-        [HttpGet("/api/[controller]/{project}/{repositoryId}")]
+        [HttpGet("/api/repos/[controller]/{project}/{repositoryId}/{commitId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<object> Get(string project, string repositoryId, string commitId)

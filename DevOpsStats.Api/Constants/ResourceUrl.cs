@@ -12,6 +12,7 @@
         public static string PullRequestUrl = $"{Api}/git/pullrequests";
         public static string ProjectUrl = $"{Api}/projects"; 
         public static string BacklogUrl = $"/{Api}/work/backlogs";
-        public static string TestPlanUrl = $"{Api}/test/runs";
+        public static string TestPlanUrl = $"{Api}/test/runs"; 
+        public static string WorkItemUrl = $"{Api}/wit";
     }
 }

@@ -22,10 +22,6 @@ namespace DevOpsStats.Api.Controllers.Boards
         /// <summary>
         /// Get a sprint/iteration by project, team and Id
         /// </summary>
-        /// <param name="project"></param>
-        /// <param name="team"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("/api/boards/[controller]/{project}/{team}/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -37,9 +33,6 @@ namespace DevOpsStats.Api.Controllers.Boards
         /// <summary>
         /// Get a sprint/iteration list by project and team
         /// </summary>
-        /// <param name="project"></param>
-        /// <param name="team"></param>
-        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

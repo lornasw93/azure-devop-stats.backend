@@ -7,11 +7,11 @@ namespace DevOpsStats.Api.Controllers.Overview
     //[ApiController]
     public class WikiController : ControllerBase
     {
-        //private readonly IDevOpsService _devOpsService;
+        //private readonly IBaseQuery _devOpsService;
 
-        //public WikiController(IDevOpsService devOpsService)
+        //public WikiController(IBaseQuery devOpsService)
         //{
-        //    _devOpsService = devOpsService;
+        //    _query = devOpsService;
         //}
 
         ///// <summary>
@@ -24,7 +24,7 @@ namespace DevOpsStats.Api.Controllers.Overview
         //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
         //public ActionResult<ValueList<Wiki>> Get(string project)
         //{
-        //    return Ok(_devOpsService.GetWiki(project));
+        //    return Ok(_query.GetWiki(project));
         //}
     }
 }

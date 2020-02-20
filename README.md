@@ -43,6 +43,8 @@ See more examples below. I started up this project for my own learning, but also
   - Who’s completed the most work items in the current sprint?
 ### Repos
   - List of repos per project including count
+### Commits
+  - List of commits by project
 ### Backlog
   - How many work items in backlog?
 ### Wiki

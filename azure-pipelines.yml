@@ -31,10 +31,7 @@ steps:
   displayName: 'publish artifacts'
  
 - task: AzureRmWebAppDeployment@4
-  inputs: 
-    ConnectionType: 'AzureRM'
+  inputs:  
     azureSubscription: 'Azure Subscription'
     appType: 'webApp'
-    WebAppName: 'devopstatsbackend'
-    packageForLinux: '$(System.ArtifactsDirectory)/drop/*.zip'
-
+    WebAppName: 'DevOpsStats.Backend-dev-asp' 

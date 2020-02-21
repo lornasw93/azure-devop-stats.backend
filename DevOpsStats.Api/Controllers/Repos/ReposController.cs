@@ -22,9 +22,6 @@ namespace DevOpsStats.Api.Controllers.Repos
         /// <summary>
         /// Get repo by project and repo Id
         /// </summary>
-        /// <param name="project"></param>
-        /// <param name="repositoryId"></param>
-        /// <returns></returns>
         [HttpGet("/api/repos/[controller]/{project}/{repositoryId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -36,8 +33,6 @@ namespace DevOpsStats.Api.Controllers.Repos
         /// <summary>
         /// Get repository count by project
         /// </summary>
-        /// <param name="project"></param>
-        /// <returns></returns>
         [HttpGet("count")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -49,8 +44,6 @@ namespace DevOpsStats.Api.Controllers.Repos
         /// <summary>
         /// Get list of repos by project
         /// </summary>
-        /// <param name="project"></param>
-        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

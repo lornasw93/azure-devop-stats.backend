@@ -20,11 +20,8 @@ namespace DevOpsStats.Api.Controllers
         }
 
         /// <summary>
-        /// Get project by name or Id
+        /// Get project
         /// </summary>
-        /// <returns>A project</returns>
-        /// <response code="200">Returns project info</response>
-        /// <response code="400">If project is null</response>
         [HttpGet("/api/[controller]/{project}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -38,9 +35,6 @@ namespace DevOpsStats.Api.Controllers
         /// <summary>
         /// Get project count
         /// </summary>
-        /// <returns>Get project count</returns>
-        /// <response code="200">Returns project count</response>
-        /// <response code="400">If project list is null</response>
         [HttpGet("count")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -54,7 +48,6 @@ namespace DevOpsStats.Api.Controllers
         /// <summary>
         /// Get all projects in the organization that the authenticated user has access to
         /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

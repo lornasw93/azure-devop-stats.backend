@@ -10,8 +10,10 @@ namespace DevOpsStats.Api.Controllers.Pipelines
     [Produces("application/json")]
     [Route("api/pipelines/[controller]")]
     [ApiController]
-    public class ReleasesController : ControllerBase
+    public class ReleasesController : BaseController
     {
+        protected override string ResourceName => $"{Api}/release/releases";
+
         private readonly IBaseQuery _query;
 
         public ReleasesController(IBaseQuery query)
@@ -22,42 +24,40 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// <summary>
         /// Get release info by project and release Id
         /// </summary> 
-        /// <returns>A release</returns>
-        /// <response code="200">Returns release info</response>
-        /// <response code="400">If release is null</response>
         [HttpGet("/api/pipelines/[controller]/{project}/{releaseId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult Get(string project, string releaseId)
-        { 
-            return Ok(_query.GetItem($"{ResourceUrl.ReleaseUrl}/{project}/{releaseId}"));
+        {
+            var url = $"{project}/{ResourceName}/{releaseId}";
+
+            return Ok(_query.GetItem(url));
         }
 
         /// <summary>
         /// Get releases count
         /// </summary>
-        /// <param name="project"></param>
-        /// <returns></returns>
         [HttpGet("count")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
-        { 
-            return Ok(_query.GetCount($"{ResourceUrl.ReleaseUrl}/{project}"));
+        {
+            var url = $"{project}/{ResourceName}";
+
+            return Ok(_query.GetCount(url));
         }
 
         /// <summary>
         /// Get list of releases by project
         /// </summary>
-        /// <returns>A list of releases</returns>
-        /// <response code="200">Returns list of releases</response>
-        /// <response code="400">If release list is null</response>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Release>> Get(string project)
-        {  
-            return Ok(_query.GetList($"{ResourceUrl.ReleaseUrl}/{project}"));
+        {
+            var url = $"{project}/{ResourceName}";
+
+            return Ok(_query.GetList(url));
         }
     }
 }

@@ -15,8 +15,10 @@ namespace DevOpsStats.Api.Controllers.Repos
     [Produces("application/json")]
     [Route("api/repos/[controller]")]
     [ApiController]
-    public class PullRequestsController : ControllerBase
+    public class PullRequestsController : BaseController
     {
+        protected override string ResourceName => $"{Api}/git";
+
         private readonly IBaseQuery _query;
 
         public PullRequestsController(IBaseQuery query)
@@ -27,15 +29,12 @@ namespace DevOpsStats.Api.Controllers.Repos
         /// <summary>
         /// Get pull request by project and pull request Id
         /// </summary>
-        /// <returns>Pull request</returns>
-        /// <response code="200">Returns pull request</response>
-        /// <response code="400">If pull request is null</response>
-        [HttpGet("/api/repos/[controller]/{project}/{pullRequestId}")]
+        [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<PullRequest> Get(string project, string pullRequestId)
+        public ActionResult<PullRequest> Get(string project, int pullRequestId)
         {
-            var url = $"{project}/apis_/git/repositories/pullrequests/{pullRequestId}";
+            var url = $"{project}/{ResourceName}/repositories/pullrequests/{pullRequestId}";
 
             return Ok(_query.GetItem(url));
         }
@@ -43,49 +42,64 @@ namespace DevOpsStats.Api.Controllers.Repos
         /// <summary>
         /// Get pull request by project, repository Id and pull request Id
         /// </summary>
-        /// <returns>Pull request</returns>
-        /// <response code="200">Returns pull request</response>
-        /// <response code="400">If pull request is null</response>
         [HttpGet("/api/repos/[controller]/{project}/{repositoryId}/{pullRequestId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<PullRequest> Get(string project, string repositoryId, string pullRequestId)
         {
-            var url = $"{project}/apis_/git/repositories/{repositoryId}/pullrequests/{pullRequestId}";
+            var url = $"{project}/{ResourceName}/repositories/{repositoryId}/pullrequests/{pullRequestId}";
 
             return Ok(_query.GetItem(url));
         }
 
         /// <summary>
-        /// Get pull request count by project
+        /// Get list of pull requests in a repository by project and repository Id
         /// </summary>
-        /// <param name="project"></param>
-        /// <returns></returns>
-        [HttpGet("count")]
+        [HttpGet("/api/repos/[controller]/{project}/{repositoryId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<ListCount> GetCount(string project)
+        public ActionResult<ValueList<PullRequest>> Get(string project, string repositoryId)
         {
-            return Ok(_query.GetCount($"{ResourceUrl.PullRequestUrl}/{project}"));
+            var url = $"{project}/{ResourceName}/repositories/{repositoryId}/pullrequests";
+
+            return Ok(_query.GetList(url));
         }
 
         /// <summary>
         /// Get list of pull requests by project
         /// </summary>
-        /// <param name="project"></param>
-        /// <returns></returns>
-        [HttpGet]
+        [HttpGet("/api/repos/[controller]/{project}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<PullRequest>> Get(string project)
         {
-            return Ok(_query.GetList($"{ResourceUrl.PullRequestUrl}/{project}"));
+            var url = $"{project}/{ResourceName}/pullrequests";
+
+            return Ok(_query.GetList(url));
         }
 
-        [HttpGet("project")]
+
+
+
+
+
+
+        /// <summary>
+        /// Get list of pull requests by repository Id and status
+        /// </summary>
+        /// <param name="repositoryId"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        [HttpGet("/api/repos/[controller]/{repositoryId}/{status}")]
+        public ActionResult<ValueList<PullRequest>> GetBy(string repositoryId, string status)
+        {
+            var x = GetPullRequestByRepoIdAndStatus(GetPullRequestsByStatus(repositoryId, status));
+            return Ok(x);
+        }
+
+        [HttpGet("other")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public void Get()
         {
             // foreach project, get pull requests
@@ -113,19 +127,6 @@ namespace DevOpsStats.Api.Controllers.Repos
                     completedPullRequests = GetPullRequestByRepoIdAndStatus(GetPullRequestsByStatus(repo.Id, PullRequestStatus.Completed));
                 }
             }
-        }
-
-        /// <summary>
-        /// Get list of pull requests by repository Id and status
-        /// </summary>
-        /// <param name="repositoryId"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
-        [HttpGet("/api/repos/[controller]/{repositoryId}/{status}")]
-        public ActionResult<ValueList<PullRequest>> GetBy(string repositoryId, string status)
-        {
-            var x = GetPullRequestByRepoIdAndStatus(GetPullRequestsByStatus(repositoryId, status));
-            return Ok(x);
         }
          
         public class Pr

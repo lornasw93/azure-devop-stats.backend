@@ -1,5 +1,4 @@
-﻿using System.Net;
-using DevOpsStats.Api.Constants;
+﻿using System.Net; 
 using DevOpsStats.Api.Models; 
 using DevOpsStats.Api.Models.Pipelines.Build;
 using DevOpsStats.Api.Queries;
@@ -10,8 +9,10 @@ namespace DevOpsStats.Api.Controllers.Pipelines
     [Produces("application/json")]
     [Route("api/pipelines/[controller]")]
     [ApiController]
-    public class BuildsController : ControllerBase
+    public class BuildsController : BaseController
     {
+        protected override string ResourceName => $"{Api}/build/builds";
+
         private readonly IBaseQuery _query;
 
         public BuildsController(IBaseQuery query)
@@ -26,8 +27,8 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Build> Get(string project, string buildId)
-        { 
-            var url = $"{ResourceUrl.BuildUrl}/{project}/{buildId}";
+        {
+            var url = $"{project}/{ResourceName}/{buildId}";
 
             return Ok(_query.GetItem(url));
         }
@@ -39,8 +40,10 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
-        { 
-            return Ok(_query.GetCount($"{ResourceUrl.BuildUrl}/{project}"));
+        {
+            var url = $"{project}/{ResourceName}";
+
+            return Ok(_query.GetCount(url));
         }
 
         /// <summary>
@@ -50,8 +53,10 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Build>> Get(string project)
-        { 
-            return Ok(_query.GetList($"{ResourceUrl.BuildUrl}/{project}"));
+        {
+            var url = $"{project}/{ResourceName}";
+
+            return Ok(_query.GetList(url));
         }
     }
 }

@@ -9,13 +9,13 @@ namespace DevOpsStats.Api.Controllers.Repos
     [Produces("application/json")]
     [Route("api/repos/[controller]")]
     [ApiController]
-    public class CommitController : BaseController
+    public class CommitsController : BaseController
     {
         protected override string ResourceName => $"{Api}/git/repositories";
 
         private readonly IBaseQuery _query;
 
-        public CommitController(IBaseQuery query)
+        public CommitsController(IBaseQuery query)
         {
             _query = query;
         }

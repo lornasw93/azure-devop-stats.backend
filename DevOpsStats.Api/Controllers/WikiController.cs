@@ -4,10 +4,10 @@ using DevOpsStats.Api.Models.Overview.Wiki;
 using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DevOpsStats.Api.Controllers.Overview
+namespace DevOpsStats.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/overview/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class WikiController : BaseController
     {
@@ -23,7 +23,7 @@ namespace DevOpsStats.Api.Controllers.Overview
         /// <summary>
         /// Gets the wiki corresponding to the wiki name or Id
         /// </summary>
-        [HttpGet("/api/overview/[controller]/{project}/{wikiIdentifer}")]
+        [HttpGet("/api/[controller]/{project}/{wikiIdentifer}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Wiki> Get(string project, string wikiIdentifier)

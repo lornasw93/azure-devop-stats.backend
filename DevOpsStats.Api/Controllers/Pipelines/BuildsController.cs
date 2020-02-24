@@ -1,8 +1,16 @@
-﻿using System.Net; 
-using DevOpsStats.Api.Models; 
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using DevOpsStats.Api.Controllers.Repos;
+using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Pipelines.Build;
+using DevOpsStats.Api.Models.Pipelines.Release;
+using DevOpsStats.Api.Models.Repos;
 using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using WebGrease.Css.Extensions;
 
 namespace DevOpsStats.Api.Controllers.Pipelines
 {
@@ -39,7 +47,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         [HttpGet("count")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<ListCount> GetCount(string project)
+        public ActionResult<int> GetCount(string project)
         {
             var url = $"{project}/{ResourceName}";
 
@@ -55,8 +63,85 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         public ActionResult<ValueList<Build>> Get(string project)
         {
             var url = $"{project}/{ResourceName}";
-
             return Ok(_query.GetList(url));
+        }
+
+        /// <summary>
+        /// Builds grouped by month
+        /// </summary>
+        [HttpGet("/api/pipelines/[controller]/chart/byMonth/{project}")]
+        public Chart GetBuildsByMonthChart(string project)
+        {
+            var builds = GetListOfBuilds(project);
+
+            return new Chart
+            {
+                Name = "Builds",
+                Series = builds.GroupBy(o => new { o.FinishTime.Month, o.FinishTime.Year })
+                               .Select(g => new { g.Key.Month, g.Key.Year, Count = g.Count() })
+                               .OrderBy(a => a.Year)
+                               .ThenBy(a => a.Month)
+                               .Select(g => new Series()
+                               {
+                                   Value = g.Count,
+                                   Name = $"{CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(g.Month)} {g.Year}"
+                               })
+            };
+        }
+
+        /// <summary>
+        /// Builds grouped by request
+        /// </summary>
+        [HttpGet("/api/pipelines/[controller]/chart/byRequest/{project}")]
+        public Chart GetBuildsByRequestChart(string project)
+        {
+            var list = GetListOfBuilds(project);
+             
+            return new Chart
+            {
+                Name = "Builds",
+                Series = list.GroupBy(o => new { o.RequestedFor.DisplayName })
+                    .Select(g => new { g.Key.DisplayName, Count = g.Count() })
+                    .Select(g => new Series()
+                    {
+                        Value = g.Count,
+                        Name = g.DisplayName
+                    })
+            };
+        }
+
+        /// <summary>
+        /// Builds grouped by result
+        /// </summary>
+        [HttpGet("/api/pipelines/[controller]/chart/byResult/{project}")]
+        public Chart GetBuildsByResultChart(string project)
+        {
+            var list = GetListOfBuilds(project);
+
+            return new Chart
+            {
+                Name = "Builds",
+                Series = list.GroupBy(o => new { o.Result })
+                    .Select(g => new { g.Key.Result, Count = g.Count() })
+                    .OrderBy(a => a.Result)
+                    .Select(g => new Series()
+                    {
+                        Value = g.Count,
+                        Name = g.Result
+                    })
+            };
+        }
+
+        private IEnumerable<Build> GetListOfBuilds(string project)
+        {
+            var list = new List<Build>();
+
+            var itemList = _query.GetList($"{project}/{ResourceName}");
+
+            if (itemList.IsCompletedSuccessfully)
+                list = JsonConvert.DeserializeObject<List<Build>>(itemList.Result.List.ToString());
+
+            return list;
         }
     }
 }

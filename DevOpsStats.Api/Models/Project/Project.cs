@@ -13,5 +13,10 @@ namespace DevOpsStats.Api.Models.Project
 
         [JsonProperty("url")]
         public string Url { get; set; }
+        
+
+        public int RepoCount { get; set; }
+        public int BuildCount { get; set; }
+        public int ReleaseCount { get; set; }
     }
 }

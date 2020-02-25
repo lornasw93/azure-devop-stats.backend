@@ -1,4 +1,5 @@
 ﻿using DevOpsStats.Api.Queries;
+using DevOpsStats.Api.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +10,7 @@ namespace DevOpsStats.Api
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             AddQueries(services);
-            AddServices(services);
+            //AddServices(services);
 
             return services;
         }
@@ -21,12 +22,6 @@ namespace DevOpsStats.Api
 
         private static void AddServices(IServiceCollection services)
         {
-            //services.AddTransient<IItemService, ItemService>();
-            //services.AddTransient<ICountService<ListCount>, CountService<ListCount>>();
-            //services.AddTransient<IDevOpsService, DevOpsService>();
-            //services.AddTransient<IListService<ListObject>, ListService<ListObject>>();
-            //services.AddTransient<ITestPlanService, TestPlanService>();
-            //services.AddTransient<IBacklogService, BacklogService>();
         }
     }
 }

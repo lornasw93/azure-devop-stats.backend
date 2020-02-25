@@ -10,8 +10,10 @@ namespace DevOpsStats.Api.Controllers.Repos
     [Produces("application/json")]
     [Route("api/repos/[controller]")]
     [ApiController]
-    public class ReposController : ControllerBase
+    public class ReposController : BaseController
     {
+        protected override string ResourceName => $"{Api}/git/repositories";
+          
         private readonly IBaseQuery _query;
 
         public ReposController(IBaseQuery query)
@@ -27,7 +29,7 @@ namespace DevOpsStats.Api.Controllers.Repos
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Repo> Get(string project, string repositoryId)
         { 
-            return Ok(_query.GetItem($"{project}/{ResourceUrl.RepoUrl}/{repositoryId}"));
+            return Ok(_query.GetItem($"{project}/{ResourceName}/{repositoryId}"));
         }
   
         /// <summary>
@@ -38,7 +40,7 @@ namespace DevOpsStats.Api.Controllers.Repos
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ListCount> GetCount(string project)
         {
-            return Ok(_query.GetCount($"{project}/{ResourceUrl.RepoUrl}"));
+            return Ok(_query.GetCount($"{project}/{ResourceName}"));
         }
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace DevOpsStats.Api.Controllers.Repos
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<ValueList<Repo>> Get(string project)
         {
-            return Ok(_query.GetList($"{project}/{ResourceUrl.RepoUrl}"));
+            return Ok(_query.GetList($"{project}/{ResourceName}"));
         } 
     }
 }

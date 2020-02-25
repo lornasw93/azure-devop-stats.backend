@@ -18,16 +18,19 @@ namespace DevOpsStats.Api.Models.Pipelines.Release
         [JsonProperty("createdOn")]
         public DateTime CreatedOn { get; set; }
 
+        [JsonProperty("modifiedOn")]
+        public DateTime ModifiedOn { get; set; }
+
+        [JsonProperty("modifiedBy")]
+        public object ModifiedBy { get; set; }
+        
         [JsonProperty("createdBy")]
         public User CreatedBy { get; set; }
-
-        [JsonProperty("variables")]
-        public object Variables { get; set; }
-
-        [JsonProperty("environments")]
-        public List<Environment> Environments { get; set; }
-
+         
+        [JsonProperty("releaseDefinition")]
+        public object ReleaseDefinition { get; set; }
+         
         [JsonProperty("url")]
-        public string Url { get; set; }
+        public string Url { get; set; } 
     }
 }

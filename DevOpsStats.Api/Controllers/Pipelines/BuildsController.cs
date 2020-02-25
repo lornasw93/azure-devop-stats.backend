@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using DevOpsStats.Api.Constants;
 using DevOpsStats.Api.Controllers.Repos;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Pipelines.Build;
@@ -96,7 +97,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         public Chart GetBuildsByRequestChart(string project)
         {
             var list = GetListOfBuilds(project);
-             
+
             return new Chart
             {
                 Name = "Builds",

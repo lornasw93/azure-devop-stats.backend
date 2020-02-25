@@ -61,8 +61,14 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         {
             var url = $"{project}/{ResourceName}";
 
-            return Ok(_query.GetList(url));
+            var x = _query.GetList(url);
+
+            return Ok(x);
         }
+
+
+
+
 
         /// <summary>
         /// Releases grouped by month

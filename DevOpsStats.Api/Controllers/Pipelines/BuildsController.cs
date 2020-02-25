@@ -11,7 +11,6 @@ using DevOpsStats.Api.Models.Repos;
 using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using WebGrease.Css.Extensions;
 
 namespace DevOpsStats.Api.Controllers.Pipelines
 {

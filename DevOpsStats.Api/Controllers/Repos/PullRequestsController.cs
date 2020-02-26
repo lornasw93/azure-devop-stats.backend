@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using DevOpsStats.Api.Constants;
 using DevOpsStats.Api.Models;
+using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Models.Repos;
 using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +22,7 @@ namespace DevOpsStats.Api.Controllers.Repos
 
         private readonly IBaseQuery _query;
 
-        public PullRequestsController(IBaseQuery query)
+        public PullRequestsController(IBaseQuery query) : base(query)
         {
             _query = query;
         }
@@ -77,10 +79,6 @@ namespace DevOpsStats.Api.Controllers.Repos
             return Ok(_query.GetList(url));
         }
 
-
-
-
-
         /// <summary>
         /// Pull Requests by status
         /// </summary>
@@ -89,6 +87,8 @@ namespace DevOpsStats.Api.Controllers.Repos
         /// <param name="status"></param>
         /// <returns></returns>
         [HttpGet("chart")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public Chart GetPullRequestsChartByStatus(string project, string repositoryId, string status)
         {
             var builds = GetPullRequestsByStatus(project, repositoryId, status);
@@ -109,59 +109,7 @@ namespace DevOpsStats.Api.Controllers.Repos
 
             return chartGroupedByStatusWithCounts;
         }
-
-        private IEnumerable<PullRequest> GetPullRequestsByStatus(string project, string repositoryId, string status)
-        {
-            var list = new List<PullRequest>();
-
-            var itemList = _query.GetList($"{project}/_apis/git/repositories/{repositoryId}/pullRequests?searchCriteria.status={status}");
-
-            if (itemList.IsCompletedSuccessfully)
-                list = JsonConvert.DeserializeObject<List<PullRequest>>(itemList.Result.List.ToString());
-
-            return list;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
         //[HttpGet("other")]
         //[ProducesResponseType((int)HttpStatusCode.OK)]
         //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -229,43 +177,43 @@ namespace DevOpsStats.Api.Controllers.Repos
 
         //    return list;
         //}
-         
-        public class Pr
-        {
-            public string Repository { get; set; }
-            public string Title { get; set; }
-            public string CreatedBy { get; set; }
-            public DateTime CreationDate { get; set; }
-            public string Reviewer { get; set; }
-            public int ReviewerCount { get; set; }
-            public string Status { get; set; }
-        }
 
-        private List<Pr> GetPullRequestByRepoIdAndStatus(IReadOnlyCollection<PullRequest> pullRequests)
-        {
-            var list = new List<Pr>();
+        //public class Pr
+        //{
+        //    public string Repository { get; set; }
+        //    public string Title { get; set; }
+        //    public string CreatedBy { get; set; }
+        //    public DateTime CreationDate { get; set; }
+        //    public string Reviewer { get; set; }
+        //    public int ReviewerCount { get; set; }
+        //    public string Status { get; set; }
+        //}
 
-            if (pullRequests.Any())
-            {
-                foreach (var pr in pullRequests)
-                {
-                    var t = pr.Reviewers.Select(x => x.DisplayName.Forename().First());
-                    var reviewer = string.Join(", ", t);
-                     
-                    list.Add(new Pr()
-                    {
-                        Repository = pr.Repository.Name,
-                        Title = pr.Title,
-                        ReviewerCount = pr.Reviewers.Count,
-                        CreationDate = pr.CreationDate,
-                        Status = pr.Status,
-                        CreatedBy = pr.CreatedBy.DisplayName.Forename(),
-                        Reviewer = reviewer
-                    });
-                }
-            }
+        //private List<Pr> GetPullRequestByRepoIdAndStatus(IReadOnlyCollection<PullRequest> pullRequests)
+        //{
+        //    var list = new List<Pr>();
 
-            return list;
-        }
-    } 
+        //    if (pullRequests.Any())
+        //    {
+        //        foreach (var pr in pullRequests)
+        //        {
+        //            var t = pr.Reviewers.Select(x => x.DisplayName.Forename().First());
+        //            var reviewer = string.Join(", ", t);
+
+        //            list.Add(new Pr()
+        //            {
+        //                Repository = pr.Repository.Name,
+        //                Title = pr.Title,
+        //                ReviewerCount = pr.Reviewers.Count,
+        //                CreationDate = pr.CreationDate,
+        //                Status = pr.Status,
+        //                CreatedBy = pr.CreatedBy.DisplayName.Forename(),
+        //                Reviewer = reviewer
+        //            });
+        //        }
+        //    }
+
+        //    return list;
+        //}
+    }
 }

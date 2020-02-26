@@ -16,25 +16,43 @@ namespace DevOpsStats.Api.Models.Project
 
         [JsonProperty("description")]
         public string Description { get; set; }
+         
+        public int RepoCount { get; set; } 
 
-        public bool IsFavourite { get; set; }
-        public int RepoCount { get; set; }
-        public int BuildCount { get; set; }
-        public int ReleaseCount { get; set; }
-     
+        public PullRequestCounts PullRequestCounts { get; set; }
+        public BuildCounts BuildCounts { get; set; }
+        public DeploymentCounts DeploymentCounts { get; set; }
+
+        public int TestRunCount { get; set; }
+        public int TestPlanCount { get; set; }
+
+        public int TeamCount { get; set; }
+
+        [JsonProperty("defaultTeam")]
+        public Basic DefaultTeam { get; set; }
+    }
+      
+    public class PullRequestCounts
+    {
         public int CompletedPullRequestCount { get; set; }
         public int ActivePullRequestCount { get; set; }
         public int AbandonedPullRequestCount { get; set; }
-        public int AllPullRequestCount { get; set; } 
-         
+        public int AllPullRequestCount { get; set; }
+    }
+
+    public class BuildCounts
+    {
         public int BuildInProgressCount { get; set; }
         public int BuildCancelledCount { get; set; }
         public int BuildSucceededCount { get; set; }
         public int BuildFailedCount { get; set; }
-        
-        public int ReleaseInProgressCount { get; set; }
-        public int ReleaseCancelledCount { get; set; }
-        public int ReleaseFailedCount { get; set; }
-        public int ReleaseSucceededCount { get; set; }
+    }
+
+    public class DeploymentCounts
+    {
+        public int InProgressCount { get; set; }
+        public int NotDeployedCount { get; set; }
+        public int FailedCount { get; set; }
+        public int SucceededCount { get; set; }
     }
 }

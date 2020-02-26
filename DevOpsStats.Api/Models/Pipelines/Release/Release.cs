@@ -33,4 +33,10 @@ namespace DevOpsStats.Api.Models.Pipelines.Release
         [JsonProperty("url")]
         public string Url { get; set; } 
     }
+
+    public class Deployment
+    {
+        [JsonProperty("deploymentStatus")]
+        public string Status { get; set; }
+    } 
 }

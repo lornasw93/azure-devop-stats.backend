@@ -1,16 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using System.Net;
 using DevOpsStats.Api.Constants;
-using DevOpsStats.Api.Controllers.Repos;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Pipelines.Build;
-using DevOpsStats.Api.Models.Pipelines.Release;
-using DevOpsStats.Api.Models.Repos;
+using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Controllers.Pipelines
 {
@@ -23,7 +19,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
 
         private readonly IBaseQuery _query;
 
-        public BuildsController(IBaseQuery query)
+        public BuildsController(IBaseQuery query) : base(query)
         {
             _query = query;
         }
@@ -70,6 +66,8 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// Builds grouped by month
         /// </summary>
         [HttpGet("/api/pipelines/[controller]/chart/byMonth/{project}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public Chart GetBuildsByMonthChart(string project)
         {
             var builds = GetListOfBuilds(project);
@@ -93,6 +91,8 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// Builds grouped by request
         /// </summary>
         [HttpGet("/api/pipelines/[controller]/chart/byRequest/{project}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public Chart GetBuildsByRequestChart(string project)
         {
             var list = GetListOfBuilds(project);
@@ -114,6 +114,8 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         /// Builds grouped by result
         /// </summary>
         [HttpGet("/api/pipelines/[controller]/chart/byResult/{project}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public Chart GetBuildsByResultChart(string project)
         {
             var list = GetListOfBuilds(project);
@@ -130,18 +132,6 @@ namespace DevOpsStats.Api.Controllers.Pipelines
                         Name = g.Result
                     })
             };
-        }
-
-        private IEnumerable<Build> GetListOfBuilds(string project)
-        {
-            var list = new List<Build>();
-
-            var itemList = _query.GetList($"{project}/{ResourceName}");
-
-            if (itemList.IsCompletedSuccessfully)
-                list = JsonConvert.DeserializeObject<List<Build>>(itemList.Result.List.ToString());
-
-            return list;
-        }
+        } 
     }
 }

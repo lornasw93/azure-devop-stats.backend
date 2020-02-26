@@ -1,4 +1,7 @@
-﻿namespace DevOpsStats.Api
+﻿using DevOpsStats.Api.Models.Project;
+using Newtonsoft.Json;
+
+namespace DevOpsStats.Api
 {
     public static class StringExtension
     {
@@ -14,6 +17,6 @@
                 return val.Split(" ")[0];
 
             return val;
-        }
-    }
+        } 
+    } 
 }

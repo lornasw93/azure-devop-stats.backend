@@ -15,7 +15,7 @@ namespace DevOpsStats.Api.Controllers.Boards
 
         private readonly IBaseQuery _query;
 
-        public WorkItemsController(IBaseQuery query)
+        public WorkItemsController(IBaseQuery query) : base(query)
         {
             _query = query;
         }

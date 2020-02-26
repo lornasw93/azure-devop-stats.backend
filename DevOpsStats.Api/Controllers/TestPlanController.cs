@@ -17,6 +17,31 @@ namespace DevOpsStats.Api.Controllers
             _query = query;
         }
 
+        /// <summary>
+        /// Get a list of test runs
+        /// </summary>
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<ValueList<object>> Get(string project)
+        {
+            return Ok(_query.GetList($"{project}/_apis/test/runs"));
+        }
+
+        //GET https://dev.azure.com/{organization}/{project}/_apis/testplan/plans?api-version=5.1-preview.1
+
+
+        /// <summary>
+        /// Get a list of test plans
+        /// </summary>
+        [HttpGet("testplans")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<ValueList<object>> GetTestPlans(string project)
+        {
+            return Ok(_query.GetList($"{project}/_apis/testplan/plans"));
+        }
+
         ///// <summary>
         ///// Get test run by project and Id
         ///// </summary>

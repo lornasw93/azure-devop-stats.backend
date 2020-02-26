@@ -2,9 +2,11 @@
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using DevOpsStats.Api.Constants;
 using DevOpsStats.Api.Controllers.Repos;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Pipelines.Release;
+using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -20,7 +22,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
 
         private readonly IBaseQuery _query;
 
-        public ReleasesController(IBaseQuery query)
+        public ReleasesController(IBaseQuery query) : base(query)
         {
             _query = query;
         }
@@ -61,14 +63,8 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         {
             var url = $"{project}/{ResourceName}";
 
-            var x = _query.GetList(url);
-
-            return Ok(x);
+            return Ok(_query.GetList(url));
         }
-
-
-
-
 
         /// <summary>
         /// Releases grouped by month
@@ -100,7 +96,7 @@ namespace DevOpsStats.Api.Controllers.Pipelines
         public Chart GetBuildsByRequestChart(string project)
         {
             var list = GetListOfReleases(project);
-             
+
             return new Chart
             {
                 Name = "Builds",
@@ -135,18 +131,6 @@ namespace DevOpsStats.Api.Controllers.Pipelines
                         Name = g.Status
                     })
             };
-        }
-
-        private IEnumerable<Release> GetListOfReleases(string project)
-        {
-            var list = new List<Release>();
-
-            var itemList = _query.GetList($"{project}/release/releases");
-
-            if (itemList.IsCompletedSuccessfully)
-                list = JsonConvert.DeserializeObject<List<Release>>(itemList.Result.List.ToString());
-
-            return list;
         }
     }
 }

@@ -35,25 +35,14 @@
         public static string Succeeded = "succeeded";//The build completed successfully
     }
 
-    public static class ReleaseStatus
+    public static class DeploymentStatus
     {
-        public static string Abandoned = "abandoned";//Release status is in abandoned
-        public static string Active = "active";//Release status is in active
-        public static string Draft = "draft";//Release is in draft state
-        public static string Undefined = "undefined";//Release status not set
-    }
-     
-    public static class ReleaseTaskStatus
-    {
-        public static string Cancelled = "canceled";
+        public static string All = "all";
         public static string Failed = "failed";
-        public static string Failure = "failure";
         public static string InProgress = "inProgress";
+        public static string NotDeployed = "notDeployed";
         public static string PartiallySucceeded = "partiallySucceeded";
-        public static string Pending = "pending";
-        public static string Skipped = "skipped";
         public static string Succeeded = "succeeded";
-        public static string Success = "success";
-        public static string Unknown = "unknown";
-    } 
+        public static string Undefined = "undefined";
+    }
 }

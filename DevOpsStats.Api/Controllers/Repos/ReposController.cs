@@ -16,7 +16,7 @@ namespace DevOpsStats.Api.Controllers.Repos
           
         private readonly IBaseQuery _query;
 
-        public ReposController(IBaseQuery query)
+        public ReposController(IBaseQuery query) : base(query)
         {
             _query = query;
         }
@@ -52,6 +52,22 @@ namespace DevOpsStats.Api.Controllers.Repos
         public ActionResult<ValueList<Repo>> Get(string project)
         {
             return Ok(_query.GetList($"{project}/{ResourceName}"));
-        } 
-    }
+        }
+         
+        [HttpGet("teams")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<ListCount> GetTeams(string project)
+        {
+            return Ok(_query.GetCount($"_apis/projects/{project}/teams"));
+        }
+         
+        //[HttpGet("teamIteration")]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        //public ActionResult<ValueList<object>> GetTeamIteration(string project,string team)
+        //{
+        //    return Ok(_query.GetList($"{project}/{team}/_apis/work/teamsettings/iterations"));
+        //}
+        }
 }

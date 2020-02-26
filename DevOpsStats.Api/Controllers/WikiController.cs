@@ -15,7 +15,7 @@ namespace DevOpsStats.Api.Controllers
 
         private readonly IBaseQuery _query;
         
-        public WikiController(IBaseQuery query)
+        public WikiController(IBaseQuery query) : base(query)
         {
             _query = query;
         }

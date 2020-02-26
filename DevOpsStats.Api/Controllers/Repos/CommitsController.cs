@@ -15,7 +15,7 @@ namespace DevOpsStats.Api.Controllers.Repos
 
         private readonly IBaseQuery _query;
 
-        public CommitsController(IBaseQuery query)
+        public CommitsController(IBaseQuery query) : base(query)
         {
             _query = query;
         }

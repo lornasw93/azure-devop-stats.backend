@@ -23,7 +23,9 @@ namespace DevOpsStats.Api
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
+        { 
+            Console.WriteLine("STARTING...");
+
             services.AddCors(options => options.AddPolicy("Default", policy => policy
                 .WithOrigins(Configuration.GetSection("AllowedCorsOrigins").Get<ICollection<string>>().ToArray())
                 .AllowAnyHeader()
@@ -56,9 +58,9 @@ namespace DevOpsStats.Api
                     Description = "Backend project to provide useful stats by combining typical everyday queries into a single dashboard using Azure DevOps REST API"
                 });
 
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //c.IncludeXmlComments(xmlPath);
             });
         }
 

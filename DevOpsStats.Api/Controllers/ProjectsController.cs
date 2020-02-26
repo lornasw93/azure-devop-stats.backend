@@ -71,33 +71,19 @@ namespace DevOpsStats.Api.Controllers
         {
             var projects = GetCertainProjects();
 
-            //string[] faves = { "fpmcore", "mysurgeryproducts", "erscrm" };
-
             foreach (var project in projects)
             {
                 project.RepoCount = GetRepoCountForProject(project.Id);
-                //project.BuildCount = GetBuildCountForProject(project.Id);
-                //project.ReleaseCount = GetReleaseCountForProject(project.Id);
-                //project.IsFavourite = faves.Contains(project.Name.ToLower());
-
                 project.PullRequestCounts = GetPullRequestCounts(project.Id);
                 project.BuildCounts = GetBuildCounts(project.Id);
                 project.DeploymentCounts = GetDeploymentCounts(project.Id);
                 project.TeamCount = GetTeamCount(project.Id);
                 project.TestRunCount = GetTestRunCount(project.Id);
                 project.TestPlanCount = GetTestPlanCount(project.Id);
-
             }
 
-            //   var x = projects.OrderByDescending(x => x.IsFavourite).ThenByDescending(y => y.Name);
-            var x = projects.OrderByDescending(y => y.Name);
-
-
-            return Ok(x);
+            return Ok(projects.OrderByDescending(y => y.Name));
         }
-
-
-
 
         private int GetTestPlanCount(string project)
         {
@@ -105,39 +91,49 @@ namespace DevOpsStats.Api.Controllers
 
             return count.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<int>(count.Result.Count.ToString()) : 0;
         }
-
-
         private int GetTestRunCount(string project)
         {
-             var count = _query.GetCount($"{project}/_apis/test/runs");
+            var count = _query.GetCount($"{project}/_apis/test/runs");
 
             return count.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<int>(count.Result.Count.ToString()) : 0;
         }
-
-      
-
         private int GetTeamCount(string projectId)
         {
             var count = _query.GetCount($"_apis/projects/{projectId}/teams");
 
             return count.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<int>(count.Result.Count.ToString()) : 0;
         }
-
         private PullRequestCounts GetPullRequestCounts(string projectId)
         {
-            var allCount = GetPullRequestsByStatus(projectId, PullRequestStatus.All);
-            if (allCount > 0)
+            var repos = GetListOfRepos(projectId);
+
+            var approved = 0;
+            var approvedWithSuggestions = 0;
+            var noVote = 0;
+            var waitingForAuthor = 0;
+            var rejected = 0;
+
+            foreach (var repo in repos)
             {
-                return new PullRequestCounts
-                {
-                    AllPullRequestCount = allCount,
-                    CompletedPullRequestCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Completed),
-                    ActivePullRequestCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Active),
-                    AbandonedPullRequestCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Abandoned)
-                };
+                approved = +GetPullRequestsByReviewerVote(projectId, repo.Id, Vote.Approved);
+                approvedWithSuggestions = +GetPullRequestsByReviewerVote(projectId, repo.Id, Vote.ApprovedWithSuggestions);
+                noVote = +GetPullRequestsByReviewerVote(projectId, repo.Id, Vote.NoVote);
+                waitingForAuthor = +GetPullRequestsByReviewerVote(projectId, repo.Id, Vote.WaitingForAuthor);
+                rejected = +GetPullRequestsByReviewerVote(projectId, repo.Id, Vote.Rejected);
             }
 
-            return null;
+            return new PullRequestCounts
+            {
+                CompletedPullRequestCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Completed),
+                ActivePullRequestCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Active),
+                AbandonedPullRequestCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Abandoned),
+                NotSetCount = GetPullRequestsByStatus(projectId, PullRequestStatus.NotSet),
+                Approved = approved,
+                ApprovedWithSuggestions = approvedWithSuggestions,
+                NoVote = noVote,
+                WaitingForAuthor = waitingForAuthor,
+                Rejected = rejected
+            };
         }
 
         private BuildCounts GetBuildCounts(string projectId)

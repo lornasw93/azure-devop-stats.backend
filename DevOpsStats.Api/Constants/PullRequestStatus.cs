@@ -1,11 +1,25 @@
-﻿namespace DevOpsStats.Api.Constants
+﻿using System.Security;
+using System.Threading.Tasks;
+
+namespace DevOpsStats.Api.Constants
 {
     public static class PullRequestStatus
     {
         public static string Abandoned = "abandoned";
         public static string Active = "active";
-        public static string All = "all";
+     //   public static string All = "all";
         public static string Completed = "completed";
+        public static string NotSet = "notSet";
+    }
+     
+
+    public static class Vote
+    {
+        public static int Approved = 10;
+        public static int ApprovedWithSuggestions = 5;
+        public static int NoVote = 0;
+        public static int WaitingForAuthor = (-5);
+        public static int Rejected = (-10);
     }
 
     public static class SprintTimeFrame
@@ -25,9 +39,9 @@
         public static string NotStarted = "notStarted";//The build has not yet started
         public static string Postponed = "postponed";//The build is inactive in the queue
     }
-     
+
     public static class BuildResult
-    { 
+    {
         public static string Cancelled = "canceled";//The build was canceled before starting
         public static string Failed = "failed";//The build completed unsuccessfully
         public static string None = "none";//No result

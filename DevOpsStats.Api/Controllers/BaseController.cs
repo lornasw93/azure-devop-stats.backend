@@ -128,5 +128,19 @@ namespace DevOpsStats.Api.Controllers
                 .Select(itemList => itemList.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<int>(itemList.Result.Count.ToString()) : 0)
                 .Sum();
         }
+
+        internal int GetPullRequestsByReviewerVote(string project, string repositoryId, int vote)
+        {
+            var list = new List<PullRequest>();
+
+            var itemList = _query.GetList($"{project}/{Api}/git/repositories/{repositoryId}/pullRequests?searchCriteria.status=all");
+
+            if (itemList.IsCompletedSuccessfully)
+                list = JsonConvert.DeserializeObject<List<PullRequest>>(itemList.Result.List.ToString());
+
+            return list.Select(item => item.Reviewers)
+                .Sum(reviewers => reviewers
+                    .Count(reviewer => reviewer.Vote == vote));
+        }
     }
 }

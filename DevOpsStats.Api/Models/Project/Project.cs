@@ -36,8 +36,14 @@ namespace DevOpsStats.Api.Models.Project
     {
         public int CompletedPullRequestCount { get; set; }
         public int ActivePullRequestCount { get; set; }
-        public int AbandonedPullRequestCount { get; set; }
-        public int AllPullRequestCount { get; set; }
+        public int AbandonedPullRequestCount { get; set; } 
+        public int NotSetCount { get; set; }
+         
+        public  int Approved { get; set; }
+        public  int ApprovedWithSuggestions { get; set; }
+        public  int NoVote { get; set; }
+        public  int WaitingForAuthor { get; set; }
+        public  int Rejected { get; set; } 
     }
 
     public class BuildCounts

@@ -66,6 +66,22 @@ namespace DevOpsStats.Api.Controllers.Repos
             return Ok(_query.GetList(url));
         }
 
+
+
+        [HttpGet("/api/repos/[controller]/{project}/{repositoryId}/{status}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<ValueList<PullRequest>> GetByStatus(string project, string repositoryId, string status)
+        {
+            var itemList = _query.GetList($"{project}/{Api}/git/repositories/{repositoryId}/pullRequests?searchCriteria.status={status}");
+            return Ok(itemList);
+        }
+
+
+
+
+
+
         /// <summary>
         /// Get list of pull requests by project
         /// </summary>
@@ -109,7 +125,11 @@ namespace DevOpsStats.Api.Controllers.Repos
 
             return chartGroupedByStatusWithCounts;
         }
- 
+
+
+
+
+
         //[HttpGet("other")]
         //[ProducesResponseType((int)HttpStatusCode.OK)]
         //[ProducesResponseType((int)HttpStatusCode.BadRequest)]

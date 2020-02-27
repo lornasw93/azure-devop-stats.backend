@@ -15,5 +15,7 @@ namespace DevOpsStats.Api.Models.Repos
         
         [JsonProperty("project")]
         public Project.Project Project { get; set; }
+        
+        public int PushCount { get; set; }
     }
 }

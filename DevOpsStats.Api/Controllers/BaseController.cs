@@ -66,10 +66,39 @@ namespace DevOpsStats.Api.Controllers
             var itemList = _query.GetList($"{project}/{Api}/git/repositories");
 
             if (itemList.IsCompletedSuccessfully)
+            {
+
                 list = JsonConvert.DeserializeObject<List<Repo>>(itemList.Result.List.ToString());
+               
+                //foreach (var item in list)
+                //{
+                //    item.PushCount = GetPushCountForRepo(project, item.Id);
+                //}
+                 
+            }
 
             return list;
         }
+         
+
+        private int GetPushCountForRepo(string project, string repoId)
+        {
+            var count = _query.GetCount($"{project}/_apis/git/repositories/{repoId}/pushes");
+
+            return count.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<int>(count.Result.Count.ToString()) : 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         internal IEnumerable<Build> GetListOfBuilds(string project)
         {

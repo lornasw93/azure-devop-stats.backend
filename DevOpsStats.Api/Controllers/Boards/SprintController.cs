@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Boards.Sprint;
@@ -24,14 +26,14 @@ namespace DevOpsStats.Api.Controllers.Boards
         }
 
         /// <summary>
-        /// Get a sprint/iteration by project, team and Id
+        /// Get work items for iteration
         /// </summary>
         [HttpGet("/api/boards/[controller]/{project}/{team}/{iterationId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public ActionResult<Sprint> Get(string project, string team, string iterationId)
         {
-            var url = $"{project}/{team}/{ResourceName}/{iterationId}";
+            var url = $"{project}/{team}/{ResourceName}/{iterationId}/workitems";
 
             return Ok(_query.GetItem(url));
         }
@@ -49,6 +51,45 @@ namespace DevOpsStats.Api.Controllers.Boards
             return Ok(_query.GetList(url));
         }
 
+        /// <summary>
+        /// Get current sprint
+        /// </summary>
+        [HttpGet("currentSprint")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public Sprint GetLatestSprint(string project, string team)
+        {
+            var list = _query.GetList($"{project}/{team}/_apis/work/teamsettings/iterations");
+             
+            if (!list.IsCompletedSuccessfully) 
+                return null;
+      
+            var a = JsonConvert.DeserializeObject<IEnumerable<Sprint>>(list.Result.List.ToString()).ToList();
+            return a.FirstOrDefault(x => x.Attribute.TimeFrame.ToLower().Equals("current"));
+        }
+
+
+        /// <summary>
+        /// Get current sprint
+        /// </summary>
+        [HttpGet("pastSprintCount")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public int GetPastSprintCount(string project, string team)
+        {
+            var list = _query.GetList($"{project}/{team}/_apis/work/teamsettings/iterations");
+
+            if (!list.IsCompletedSuccessfully)
+                return 0;
+
+            var a = JsonConvert.DeserializeObject<IEnumerable<Sprint>>(list.Result.List.ToString()).ToList();
+
+
+
+            var x = a.Where(x => x.Attribute.TimeFrame.ToLower().Equals("past"));
+
+            return a.Count(x => x.Attribute.TimeFrame.ToLower().Equals("past"));
+        }
 
 
         /// <summary>
@@ -61,31 +102,6 @@ namespace DevOpsStats.Api.Controllers.Boards
 
             return Ok(_query.GetList(url));
         }
-        
-        /// <summary>
-        /// Get current sprint
-        /// </summary>
-        [HttpGet("currentSprint")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public ActionResult<object> GetLatestSprint(string project, string team)
-        {
-            var item = _query.GetItem($"{project}/{team}/_apis/work/teamsettings/iterations?timeframe=current");
 
-            return Ok(item);
-        }
-
-        ///// <summary>
-        ///// Get a list of work items in a sprint/iteration by project, team and iteration Id
-        ///// </summary>
-        //[HttpGet("/api/boards/[controller]/{project}/{team}/{iterationId}")]
-        //[ProducesResponseType((int)HttpStatusCode.OK)]
-        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        //public ActionResult<ValueList<object>> Get(string project, string team, Guid iterationId)
-        //{
-        //    var url = $"{project}/{team}/{ResourceName}/{iterationId}/workitems";
-
-        //    return Ok(_query.GetList(url));
-        //} 
     }
 }

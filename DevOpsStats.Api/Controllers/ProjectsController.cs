@@ -172,6 +172,20 @@ namespace DevOpsStats.Api.Controllers
             return null;
         }
 
+
+        /// <summary>
+        /// Get list of backlogs
+        /// </summary>
+        [HttpGet("backlogs")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<ValueList<object>> GetBacklogs(string project, string team)
+        {
+            var url = $"{project}/{team}/_apis/work/backlogs";
+
+            return Ok(_query.GetList(url));
+        }
+
         //private int GetBuildCountForProject(string project)
         //{
         //    var count = _query.GetCount($"{project}/{Api}/build/builds");
@@ -184,9 +198,7 @@ namespace DevOpsStats.Api.Controllers
 
         //    return count.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<int>(count.Result.Count.ToString()) : 0;
         //}
-
-
-
+         
         //private string GetDiff(DateTime date)
         //{
         //    var ts = new TimeSpan(DateTime.UtcNow.Ticks - date.Ticks);
@@ -222,51 +234,7 @@ namespace DevOpsStats.Api.Controllers
         //    var years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
         //    return years <= 1 ? "one year ago" : years + " years ago";
         //}
-
-        //public ActionResult<ValueList<Project>> Gdddet()
-        //{
-        //    var projects = GetListOfProjects();
-
-        //    string[] faves = { "fpmcore", "mysurgeryproducts", "erscrm" };
-
-        //    foreach (var project in projects)
-        //    {
-        //        project.RepoCount = GetRepoCountForProject(project.Id);
-        //        project.BuildCount = GetBuildCountForProject(project.Id);
-        //        project.ReleaseCount = GetReleaseCountForProject(project.Id);
-        //        project.IsFavourite = faves.Contains(project.Name.ToLower());
-
-        //        project.AllPullRequestCount = GetPullRequestsByStatus(project.Id, PullRequestStatus.All);
-        //        if (project.AllPullRequestCount > 0)
-        //        {
-        //            project.CompletedPullRequestCount = GetPullRequestsByStatus(project.Id, PullRequestStatus.Completed);
-        //            project.ActivePullRequestCount = GetPullRequestsByStatus(project.Id, PullRequestStatus.Active);
-        //            project.AbandonedPullRequestCount = GetPullRequestsByStatus(project.Id, PullRequestStatus.Abandoned);
-        //        }
-
-        //        var buildsList = GetListOfBuilds(project.Id);
-        //        if (buildsList.Any())
-        //        {
-        //            project.BuildInProgressCount = buildsList.Count(l => l.Result.Equals(BuildStatus.InProgress));
-        //            project.BuildFailedCount = buildsList.Count(l => l.Result.Equals(BuildResult.Failed));
-        //            project.BuildCancelledCount = buildsList.Count(l => l.Result.Equals(BuildResult.Cancelled));
-        //            project.BuildSucceededCount = buildsList.Count(l => l.Result.Equals(BuildResult.Succeeded));
-        //        }
-
-        //        var releasesList = GetListOfReleases(project.Id);
-        //        if (releasesList.Any())
-        //        {
-        //            project.ReleaseInProgressCount = releasesList.Count(l => l.Status.Equals(ReleaseTaskStatus.InProgress));
-        //            project.ReleaseFailedCount = releasesList.Count(l => l.Status.Equals(ReleaseTaskStatus.Failed));
-        //            project.ReleaseCancelledCount = releasesList.Count(l => l.Status.Equals(ReleaseTaskStatus.Cancelled));
-        //            project.ReleaseSucceededCount = releasesList.Count(l => l.Status.Equals(ReleaseTaskStatus.Succeeded));
-        //        }
-        //    }
-
-        //    var t = projects.OrderByDescending(x => x.IsFavourite).ThenByDescending(y => y.Name);
-
-        //    return Ok(t);
-        //} 
+         
         private int GetRepoCountForProject(string project)
         {
             var count = _query.GetCount($"{project}/{Api}/git/repositories");
@@ -321,6 +289,11 @@ namespace DevOpsStats.Api.Controllers
 
             return result.OrderByDescending(y => y.Count);
         }
+
+
+
+
+
     }
 
     public class Iteration

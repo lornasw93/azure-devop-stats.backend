@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using DevOpsStats.Api.Models.Repos;
 using Newtonsoft.Json;
 
 namespace DevOpsStats.Api.Models.Project
@@ -29,14 +31,15 @@ namespace DevOpsStats.Api.Models.Project
         public int TeamCount { get; set; }
 
         [JsonProperty("defaultTeam")]
-        public Basic DefaultTeam { get; set; }
+        public Basic DefaultTeam { get; set; }  
     }
       
     public class PullRequestCounts
     {
-        public int CompletedPullRequestCount { get; set; }
-        public int ActivePullRequestCount { get; set; }
-        public int AbandonedPullRequestCount { get; set; } 
+        public int CompletedCount { get; set; }
+        public int ActiveCount { get; set; } 
+
+        public int AbandonedCount { get; set; } 
         public int NotSetCount { get; set; }
          
         public  int Approved { get; set; }

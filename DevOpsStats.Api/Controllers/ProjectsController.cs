@@ -121,12 +121,12 @@ namespace DevOpsStats.Api.Controllers
                 waitingForAuthor = +GetPullRequestsByReviewerVote(projectId, repo.Id, Vote.WaitingForAuthor);
                 rejected = +GetPullRequestsByReviewerVote(projectId, repo.Id, Vote.Rejected);
             }
-
-            return new PullRequestCounts
+             
+            var counts = new PullRequestCounts
             {
-                CompletedPullRequestCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Completed),
-                ActivePullRequestCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Active),
-                AbandonedPullRequestCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Abandoned),
+                CompletedCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Completed),
+                ActiveCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Active),
+                AbandonedCount = GetPullRequestsByStatus(projectId, PullRequestStatus.Abandoned),
                 NotSetCount = GetPullRequestsByStatus(projectId, PullRequestStatus.NotSet),
                 Approved = approved,
                 ApprovedWithSuggestions = approvedWithSuggestions,
@@ -134,6 +134,8 @@ namespace DevOpsStats.Api.Controllers
                 WaitingForAuthor = waitingForAuthor,
                 Rejected = rejected
             };
+             
+            return counts;
         }
 
         private BuildCounts GetBuildCounts(string projectId)
@@ -169,7 +171,6 @@ namespace DevOpsStats.Api.Controllers
 
             return null;
         }
-
 
         //private int GetBuildCountForProject(string project)
         //{

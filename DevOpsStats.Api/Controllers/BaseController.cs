@@ -121,12 +121,22 @@ namespace DevOpsStats.Api.Controllers
         internal int GetPullRequestsByStatus(string project, string status)
         {
             var repos = GetListOfRepos(project);
+       
+            return repos.Select(repo => _query
+                 .GetCount($"{project}/{Api}/git/repositories/{repo.Id}/pullRequests?searchCriteria.status={status}"))
+             .Select(itemList => itemList.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<int>(itemList.Result.Count.ToString()) : 0)
+             .Sum();
+        }
+         
+        internal IEnumerable<object> GetPullRequestListByStatus(string project, string status)
+        {
+            var repos = GetListOfRepos(project);
 
-            return repos
-                .Select(repo => _query
-                    .GetCount($"{project}/{Api}/git/repositories/{repo.Id}/pullRequests?searchCriteria.status={status}"))
-                .Select(itemList => itemList.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<int>(itemList.Result.Count.ToString()) : 0)
-                .Sum();
+            return repos.Select(repo => _query
+                    .GetList($"{project}/{Api}/git/repositories/{repo.Id}/pullRequests?searchCriteria.status={status}"))
+                .Select(itemList => itemList.IsCompletedSuccessfully
+                    ? JsonConvert.DeserializeObject<IEnumerable<object>>(itemList.Result.List.ToString())
+                    : null);
         }
 
         internal int GetPullRequestsByReviewerVote(string project, string repositoryId, int vote)

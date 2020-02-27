@@ -61,37 +61,18 @@ namespace DevOpsStats.Api.Controllers.Boards
 
             return Ok(_query.GetList(url));
         }
-
-
-
-        //[HttpGet("teamPro")]
-        //public Project a(string projectId)
-        //{
-        //    //GET https://dev.azure.com/{organization}/{project}/{team}/_apis/work/teamsettings/iterations
-             
-        //    var project = $"{Api}/projects/{projectId}";
-
-        //    var item = _query.GetItem(project);
-
-
-        //    var xx = JsonConvert.DeserializeObject<Project>(item.Result.ToString());
-
-
-
-
-
-        //}
-
-
-
-
-
-
-        private Iteration GetLatestSprint(string project, string team)
+        
+        /// <summary>
+        /// Get current sprint
+        /// </summary>
+        [HttpGet("currentSprint")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<object> GetLatestSprint(string project, string team)
         {
             var item = _query.GetItem($"{project}/{team}/_apis/work/teamsettings/iterations?timeframe=current");
 
-            return item.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<Iteration>(item.Result.ToString()) : null;
+            return Ok(item);
         }
 
         ///// <summary>

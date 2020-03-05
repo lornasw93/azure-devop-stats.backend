@@ -172,7 +172,6 @@ namespace DevOpsStats.Api.Controllers
             return null;
         }
 
-
         /// <summary>
         /// Get list of backlogs
         /// </summary>

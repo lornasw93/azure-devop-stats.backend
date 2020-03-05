@@ -1,13 +1,12 @@
-﻿using DevOpsStats.Api.Models.Project;
-using Newtonsoft.Json;
-
-namespace DevOpsStats.Api
+﻿namespace DevOpsStats.Api
 {
     public static class StringExtension
-    {
-        //Lorna.Watson
-        //Lorna Watson
-
+    { 
+        /// <summary>
+        /// Extension that accepts Lorna.Watson and Lorna Watson and outputs forename only i.e. Lorna
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
         public static string Forename(this string val)
         {
             if (val.Contains("."))

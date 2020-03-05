@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using DevOpsStats.Api.Models;
 using DevOpsStats.Api.Models.Boards.Sprint;
-using DevOpsStats.Api.Models.Project;
 using DevOpsStats.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -83,9 +81,6 @@ namespace DevOpsStats.Api.Controllers.Boards
                 return 0;
 
             var a = JsonConvert.DeserializeObject<IEnumerable<Sprint>>(list.Result.List.ToString()).ToList();
-
-
-
             var x = a.Where(x => x.Attribute.TimeFrame.ToLower().Equals("past"));
 
             return a.Count(x => x.Attribute.TimeFrame.ToLower().Equals("past"));

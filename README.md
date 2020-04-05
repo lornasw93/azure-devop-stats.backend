@@ -1,4 +1,4 @@
-# DevOps Stats Backend
+# DevOp Stats Backend
 
 ***Currently a work in progress, with my initial thoughts below on what to include in the project and why it would be beneficial. Also a bit about what the project is about.***
 

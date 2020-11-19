@@ -34,9 +34,7 @@ namespace DevOpsStats.Api.Controllers
         {
             var projectIds = new List<string>()
             {
-                "d3f6df63-8bb5-491f-8353-bd21bc0cf12b", //msw2
-                "9e364b7e-c540-4664-9d44-2c48715bdd62", //fpmcore
-                "89fd6ae8-0028-4e3e-ae01-cc2bfe58b9f8", //identityserver
+               
             };
 
             return (from id in projectIds
@@ -78,8 +76,7 @@ namespace DevOpsStats.Api.Controllers
             }
 
             return list;
-        }
-         
+        }        
 
         private int GetPushCountForRepo(string project, string repoId)
         {
@@ -87,18 +84,6 @@ namespace DevOpsStats.Api.Controllers
 
             return count.IsCompletedSuccessfully ? JsonConvert.DeserializeObject<int>(count.Result.Count.ToString()) : 0;
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
         internal IEnumerable<Build> GetListOfBuilds(string project)
         {
